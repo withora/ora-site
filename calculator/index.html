@@ -26,9 +26,9 @@
   --lora: 'Lora', Georgia, serif;
   --sans: 'DM Sans', system-ui, sans-serif;
 }
- 
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 body {
   background: var(--cream);
   font-family: var(--sans);
@@ -38,7 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
- 
+
 /* ── BACKGROUND TEXTURE ── */
 body::before {
   content: '';
@@ -51,7 +51,7 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
- 
+
 .wrapper {
   position: relative;
   z-index: 1;
@@ -59,14 +59,14 @@ body::before {
   margin: 0 auto;
   padding: 48px 24px 100px;
 }
- 
+
 /* ── HEADER ── */
 .header {
   text-align: center;
   margin-bottom: 48px;
   animation: fadeUp 0.7s ease both;
 }
- 
+
 .ora-mark {
   display: inline-flex;
   align-items: center;
@@ -80,7 +80,7 @@ body::before {
   color: var(--muted);
   letter-spacing: 0.04em;
 }
- 
+
 .eyebrow {
   font-family: var(--lora);
   font-style: italic;
@@ -98,7 +98,7 @@ body::before {
   height: 1.5px;
   background: var(--terra-lt);
 }
- 
+
 h1 {
   font-family: var(--serif);
   font-size: clamp(32px, 6vw, 52px);
@@ -113,7 +113,7 @@ h1 em {
   font-weight: 300;
   color: var(--terra);
 }
- 
+
 .subtitle {
   font-family: var(--lora);
   font-style: italic;
@@ -123,7 +123,7 @@ h1 em {
   max-width: 480px;
   margin: 0 auto;
 }
- 
+
 /* ── CARD ── */
 .card {
   background: var(--warm);
@@ -135,7 +135,7 @@ h1 em {
     0 1px 4px rgba(30,26,18,0.04);
   animation: fadeUp 0.7s ease 0.15s both;
 }
- 
+
 /* ── INPUTS ── */
 .field {
   margin-bottom: 28px;
@@ -143,7 +143,7 @@ h1 em {
 .field:last-of-type {
   margin-bottom: 36px;
 }
- 
+
 .field-label {
   display: flex;
   justify-content: space-between;
@@ -163,7 +163,7 @@ h1 em {
   font-size: 12px;
   color: var(--muted);
 }
- 
+
 .input-wrap {
   position: relative;
 }
@@ -190,14 +190,14 @@ h1 em {
   color: var(--muted);
   pointer-events: none;
 }
- 
+
 input[type="number"],
 input[type="range"] {
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
 }
- 
+
 input[type="number"] {
   background: var(--cream);
   border: 1.5px solid var(--border);
@@ -219,7 +219,7 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   opacity: 0.3;
 }
- 
+
 /* Range slider */
 .range-wrap {
   display: flex;
@@ -246,7 +246,7 @@ input[type="number"]::-webkit-outer-spin-button {
   font-style: italic;
   margin-left: 4px;
 }
- 
+
 input[type="range"] {
   width: 100%;
   height: 6px;
@@ -289,7 +289,7 @@ input[type="range"]::-moz-range-thumb {
   font-family: var(--lora);
   font-style: italic;
 }
- 
+
 /* ── CALCULATE BUTTON ── */
 .btn-calc {
   width: 100%;
@@ -323,7 +323,7 @@ input[type="range"]::-moz-range-thumb {
 .btn-calc:active {
   transform: translateY(0);
 }
- 
+
 /* ── RESULTS ── */
 .results {
   display: none;
@@ -333,13 +333,13 @@ input[type="range"]::-moz-range-thumb {
 .results.visible {
   display: block;
 }
- 
+
 .result-divider {
   height: 1.5px;
   background: linear-gradient(to right, transparent, var(--border), transparent);
   margin-bottom: 32px;
 }
- 
+
 .result-eyebrow {
   font-family: var(--lora);
   font-style: italic;
@@ -348,14 +348,14 @@ input[type="range"]::-moz-range-thumb {
   text-align: center;
   margin-bottom: 24px;
 }
- 
+
 .result-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin-bottom: 20px;
 }
- 
+
 .result-card {
   border-radius: 16px;
   padding: 20px 22px;
@@ -369,7 +369,7 @@ input[type="range"]::-moz-range-thumb {
   background: var(--ink);
   border: 1.5px solid transparent;
 }
- 
+
 .result-label {
   font-family: var(--lora);
   font-style: italic;
@@ -378,7 +378,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .result-card.monthly .result-label { color: var(--terra); }
 .result-card.annual .result-label { color: rgba(255,255,255,0.4); }
- 
+
 .result-number {
   font-family: var(--serif);
   font-weight: 900;
@@ -387,7 +387,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .result-card.monthly .result-number { color: var(--terra); font-size: clamp(28px,6vw,42px); }
 .result-card.annual .result-number { color: var(--amber-lt); font-size: clamp(28px,6vw,42px); }
- 
+
 .result-sub {
   font-size: 11px;
   margin-top: 4px;
@@ -396,7 +396,7 @@ input[type="range"]::-moz-range-thumb {
 }
 .result-card.monthly .result-sub { color: rgba(192,72,32,0.55); }
 .result-card.annual .result-sub { color: rgba(255,255,255,0.25); }
- 
+
 /* Insight line */
 .result-insight {
   background: var(--sage-pale);
@@ -416,7 +416,7 @@ input[type="range"]::-moz-range-thumb {
   color: var(--sage);
   font-weight: 700;
 }
- 
+
 /* Share row */
 .share-row {
   display: flex;
@@ -459,7 +459,7 @@ input[type="range"]::-moz-range-thumb {
   color: var(--sage);
   background: var(--sage-pale);
 }
- 
+
 /* CTA */
 .cta-block {
   background: var(--terra);
@@ -487,7 +487,7 @@ input[type="range"]::-moz-range-thumb {
   border-radius: 50%;
   pointer-events: none;
 }
- 
+
 .cta-title {
   font-family: var(--serif);
   font-size: clamp(18px, 4vw, 26px);
@@ -540,7 +540,7 @@ input[type="range"]::-moz-range-thumb {
   position: relative;
   z-index: 1;
 }
- 
+
 /* ── FOOTER ── */
 .footer {
   text-align: center;
@@ -559,7 +559,7 @@ input[type="range"]::-moz-range-thumb {
   font-size: 12px;
   color: var(--muted);
 }
- 
+
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
@@ -569,7 +569,7 @@ input[type="range"]::-moz-range-thumb {
   from { opacity: 0; transform: scale(0.96) translateY(12px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
- 
+
 /* ── MOBILE ── */
 @media (max-width: 520px) {
   .card { padding: 28px 24px; }
@@ -580,10 +580,22 @@ input[type="range"]::-moz-range-thumb {
 </head>
 <body>
 <div class="wrapper">
- 
+
+  <!-- BACK LINK -->
+  <div style="margin-bottom:32px;animation:fadeUp 0.5s ease both;">
+    <a href="/" style="display:inline-flex;align-items:center;gap:6px;
+      font-family:'Lora',serif;font-style:italic;font-size:13px;
+      color:rgba(30,26,18,0.4);text-decoration:none;
+      transition:color 0.2s ease;"
+      onmouseover="this.style.color='#c04820'"
+      onmouseout="this.style.color='rgba(30,26,18,0.4)'">
+      ← withora.co
+    </a>
+  </div>
+
   <!-- HEADER -->
   <div class="header">
-    <div class="ora-mark">
+    <a href="/" class="ora-mark" style="text-decoration:none;cursor:pointer;">
       <svg width="22" height="26" viewBox="0 0 90 108" fill="none">
         <path d="M45 102C43 88 47 74 44 62C42 50 46 38 44 28C42 18 46 10 45 4"
           stroke="#1e1a12" stroke-width="3.5" stroke-linecap="round" fill="none"/>
@@ -607,16 +619,16 @@ input[type="range"]::-moz-range-thumb {
           color:#1e1a12;margin-left:-1px;line-height:1;">ra</span>
       </span>
       <span class="ora-domain">withora.co</span>
-    </div>
- 
+    </a>
+
     <div class="eyebrow">Free tool</div>
     <h1>How much revenue are<br>you <em>leaking?</em></h1>
     <p class="subtitle">Most local business owners have no idea what missed calls and slow follow-ups are actually costing them. Find out in 30 seconds.</p>
   </div>
- 
+
   <!-- CALCULATOR CARD -->
   <div class="card">
- 
+
     <!-- Field 1: Average service value -->
     <div class="field">
       <div class="field-label">
@@ -629,7 +641,7 @@ input[type="range"]::-moz-range-thumb {
           placeholder="150" aria-label="Average service value in dollars">
       </div>
     </div>
- 
+
     <!-- Field 2: Missed calls per week -->
     <div class="field">
       <div class="field-label">
@@ -648,7 +660,7 @@ input[type="range"]::-moz-range-thumb {
         </div>
       </div>
     </div>
- 
+
     <!-- Field 3: Close rate -->
     <div class="field">
       <div class="field-label">
@@ -667,16 +679,16 @@ input[type="range"]::-moz-range-thumb {
         </div>
       </div>
     </div>
- 
+
     <button class="btn-calc" onclick="calculate()">
       Show me what I'm losing →
     </button>
- 
+
     <!-- RESULTS -->
     <div class="results" id="results">
       <div class="result-divider"></div>
       <div class="result-eyebrow">Here's what those missed calls are actually costing you.</div>
- 
+
       <div class="result-grid">
         <div class="result-card monthly">
           <div class="result-label">Every month</div>
@@ -689,9 +701,9 @@ input[type="range"]::-moz-range-thumb {
           <div class="result-sub">in missed revenue</div>
         </div>
       </div>
- 
+
       <div class="result-insight" id="insightText"></div>
- 
+
       <!-- Share -->
       <div class="share-row">
         <span class="share-label">Share:</span>
@@ -702,7 +714,7 @@ input[type="range"]::-moz-range-thumb {
           🔗 Copy link
         </button>
       </div>
- 
+
       <!-- CTA -->
       <div class="cta-block">
         <div class="cta-title">Let's stop the leak.<br>Starting this week.</div>
@@ -714,10 +726,10 @@ input[type="range"]::-moz-range-thumb {
       </div>
     </div>
   </div>
- 
+
   <!-- FOOTER -->
   <div class="footer">
-    <div class="footer-mark">
+    <a href="/" class="footer-mark" style="text-decoration:none;">
       <svg width="14" height="17" viewBox="0 0 90 108" fill="none">
         <path d="M45 102C43 88 47 74 44 62C42 50 46 38 44 28C42 18 46 10 45 4"
           stroke="rgba(30,26,18,0.3)" stroke-width="4" stroke-linecap="round" fill="none"/>
@@ -727,12 +739,12 @@ input[type="range"]::-moz-range-thumb {
       </svg>
       <span style="font-family:'Lora',serif;font-style:italic;font-size:12px;
         color:rgba(30,26,18,0.3);">withora.co</span>
-    </div>
-    <div class="footer-text">AI systems for local businesses · Built by Ora</div>
+    </a>
+    <a href="/" style="text-decoration:none;" class="footer-text">AI systems for local businesses · Built by Ora</a>
   </div>
- 
+
 </div>
- 
+
 <script>
 // Update range display and track fill
 function updateRange(input) {
@@ -741,7 +753,7 @@ function updateRange(input) {
   const max = parseInt(input.max);
   const pct = ((val - min) / (max - min)) * 100;
   input.style.setProperty('--pct', pct + '%');
- 
+
   if (input.id === 'missedCalls') {
     document.getElementById('missedDisplay').innerHTML =
       val + ' <span>calls/week</span>';
@@ -750,24 +762,24 @@ function updateRange(input) {
       val + ' <span>% close rate</span>';
   }
 }
- 
+
 // Init range fills on load
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('input[type="range"]').forEach(r => updateRange(r));
 });
- 
+
 // Format currency
 function fmt(n) {
   if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
   if (n >= 10000) return '$' + Math.round(n/1000) + 'K';
   return '$' + n.toLocaleString();
 }
- 
+
 // Generate insight text
 function getInsight(monthly, annual, missed, closeRate, serviceVal) {
   const bookedPerWeek = (missed * closeRate / 100).toFixed(1);
   const signalMonths = Math.ceil(monthly / 297);
- 
+
   if (annual >= 50000) {
     return `<strong>That's a serious number.</strong> At your volume, the right system pays for itself in days — not months. ${bookedPerWeek} bookings a week are slipping through that AI would have caught.`;
   } else if (annual >= 20000) {
@@ -778,27 +790,27 @@ function getInsight(monthly, annual, missed, closeRate, serviceVal) {
     return `Even recovering <strong>half of those missed calls</strong> would more than cover the cost of a full AI system. The math is on your side.`;
   }
 }
- 
+
 // Main calculate function
 function calculate() {
   const serviceVal = parseFloat(document.getElementById('serviceValue').value) || 150;
   const missed = parseInt(document.getElementById('missedCalls').value);
   const closeRate = parseInt(document.getElementById('closeRate').value);
- 
+
   // Weekly leak = missed calls × close rate × service value
   const weeklyLeak = missed * (closeRate / 100) * serviceVal;
   const monthlyLeak = Math.round(weeklyLeak * 4.33);
   const annualLeak = Math.round(weeklyLeak * 52);
- 
+
   // Update display
   document.getElementById('monthlyLeak').textContent = fmt(monthlyLeak);
   document.getElementById('annualLeak').textContent = fmt(annualLeak);
   document.getElementById('insightText').innerHTML =
     getInsight(monthlyLeak, annualLeak, missed, closeRate, serviceVal);
- 
+
   // Store for sharing
   window._calcResult = { monthlyLeak, annualLeak, serviceVal, missed, closeRate };
- 
+
   // Show results
   const results = document.getElementById('results');
   results.classList.add('visible');
@@ -806,7 +818,7 @@ function calculate() {
     results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, 100);
 }
- 
+
 // Clipboard helper — works on desktop and mobile
 function copyToClipboard(text, onSuccess, onFail) {
   // Modern async API
@@ -819,7 +831,7 @@ function copyToClipboard(text, onSuccess, onFail) {
     legacyCopy(text, onSuccess, onFail);
   }
 }
- 
+
 function legacyCopy(text, onSuccess, onFail) {
   const ta = document.createElement('textarea');
   ta.value = text;
@@ -836,7 +848,7 @@ function legacyCopy(text, onSuccess, onFail) {
     onFail();
   }
 }
- 
+
 // Show a toast message on screen (works everywhere)
 function showToast(msg) {
   let toast = document.getElementById('ora-toast');
@@ -863,13 +875,13 @@ function showToast(msg) {
     toast.style.transform = 'translateX(-50%) translateY(20px)';
   }, 2800);
 }
- 
+
 // Share functions
 function shareResult(platform) {
   const r = window._calcResult;
   if (!r) return;
   const text = `I just found out I'm losing ${fmt(r.annualLeak)}/year from missed calls. 😳 Used this free calculator from @withora — takes 30 seconds to find your number: withora.co`;
- 
+
   if (platform === 'instagram') {
     copyToClipboard(
       text,
@@ -878,15 +890,15 @@ function shareResult(platform) {
     );
   }
 }
- 
+
 function copyResult() {
   const r = window._calcResult;
   if (!r) return;
   const url = 'https://withora.co/calculator';
   const text = `My business is leaking ${fmt(r.annualLeak)}/year from missed calls. Found out with this free calculator: ${url}`;
- 
+
   const btn = document.getElementById('copyBtn');
- 
+
   copyToClipboard(
     text,
     () => {
@@ -904,7 +916,7 @@ function copyResult() {
     }
   );
 }
- 
+
 // Allow enter key to calculate
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter') calculate();
