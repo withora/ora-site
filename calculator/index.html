@@ -702,6 +702,41 @@ input[type="range"]::-moz-range-thumb {
         </div>
       </div>
 
+      <!-- DICKENS PATTERN — 5 year card -->
+      <div style="background:var(--ink);border-radius:14px;padding:20px 24px;
+        margin:14px 0;position:relative;overflow:hidden;text-align:center;">
+        <div style="position:absolute;top:-40px;right:-40px;width:160px;height:160px;
+          background:radial-gradient(circle,rgba(192,72,32,0.2) 0%,transparent 65%);
+          pointer-events:none;"></div>
+        <div style="font-family:var(--lora);font-style:italic;font-size:11px;
+          color:rgba(255,255,255,0.35);letter-spacing:0.06em;margin-bottom:8px;
+          position:relative;z-index:1;">If nothing changes — over 5 years</div>
+        <div style="font-family:var(--serif);font-weight:900;
+          font-size:clamp(32px,8vw,52px);color:var(--terra-lt);
+          letter-spacing:-0.03em;line-height:1.0;position:relative;z-index:1;"
+          id="fiveYearLeak">$0</div>
+        <div style="font-family:var(--lora);font-style:italic;font-size:12px;
+          color:rgba(255,255,255,0.3);margin-top:6px;position:relative;z-index:1;">
+          left on the table
+        </div>
+        <div style="height:1px;background:rgba(255,255,255,0.08);margin:14px 0;
+          position:relative;z-index:1;"></div>
+        <div style="font-family:var(--lora);font-style:italic;font-size:13px;
+          color:rgba(255,255,255,0.55);line-height:1.7;position:relative;z-index:1;"
+          id="dickensText">
+          Or you fix this in 7 days.
+        </div>
+      </div>
+
+      <!-- FUTURE PACING -->
+      <div style="background:var(--sage-pale);border:1.5px solid rgba(58,107,62,0.18);
+        border-radius:14px;padding:18px 22px;margin-bottom:20px;text-align:center;">
+        <div style="font-family:var(--lora);font-style:italic;font-size:14px;
+          color:var(--ink-soft);line-height:1.8;" id="futurePaceText">
+          Imagine checking your phone on a Monday morning and seeing new consultations booked over the weekend. Each one answered, qualified, confirmed. You didn't touch your phone once.
+        </div>
+      </div>
+
       <div class="result-insight" id="insightText"></div>
 
       <!-- Share -->
@@ -715,14 +750,71 @@ input[type="range"]::-moz-range-thumb {
         </button>
       </div>
 
-      <!-- CTA -->
+      <!-- STEP ONE FRAMING -->
+      <div style="text-align:center;margin:8px 0 20px;">
+        <span style="font-family:var(--lora);font-style:italic;font-size:13px;
+          color:var(--muted);">This is step one. The audit shows you exactly what to do about it.</span>
+      </div>
+
+      <!-- CTA 1 — PRIMARY: Book the audit -->
       <div class="cta-block">
         <div class="cta-title">Let's stop the leak.<br>Starting this week.</div>
-        <div class="cta-sub">Free audit. We show you exactly what we'd fix and what it's worth. No call. No pitch. Results in your inbox within 24 hours.</div>
+        <div class="cta-sub">Free audit. We look at your specific practice, name every gap, and tell you exactly what we'd build to close it. No call. No pitch. Results in your inbox within 24 hours.</div>
         <a href="https://cal.com/withora/free-audit" class="btn-cta" target="_blank" rel="noopener">
           Get my free audit →
         </a>
         <div class="cta-note">Free · No obligation · No video call</div>
+      </div>
+
+      <!-- CTA 2 — EMAIL CAPTURE -->
+      <div style="background:var(--sage-pale);border:1.5px solid var(--sage-lt);
+        border-radius:16px;padding:24px 28px;margin-top:14px;text-align:center;">
+        <div style="font-family:var(--serif);font-size:17px;font-weight:700;
+          color:var(--ink);letter-spacing:-0.015em;margin-bottom:6px;">
+          Want your full breakdown sent to you?
+        </div>
+        <div style="font-family:var(--lora);font-style:italic;font-size:13px;
+          color:var(--muted);margin-bottom:16px;line-height:1.65;">
+          Enter your email and we'll send your numbers plus three things practices in your niche do to close this gap.
+        </div>
+        <div style="display:flex;gap:8px;max-width:400px;margin:0 auto;">
+          <input type="email" id="emailInput" placeholder="your@email.com"
+            style="flex:1;padding:12px 16px;border:1.5px solid rgba(58,107,62,0.25);
+            border-radius:10px;font-family:var(--sans);font-size:14px;
+            background:#fff;color:var(--ink);outline:none;
+            transition:border-color 0.2s ease;"
+            onfocus="this.style.borderColor='var(--sage)'"
+            onblur="this.style.borderColor='rgba(58,107,62,0.25)'"
+          />
+          <button onclick="submitEmail()"
+            style="background:var(--sage);color:#fff;border:none;
+            border-radius:10px;padding:12px 20px;font-family:var(--serif);
+            font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;
+            transition:background 0.2s ease;"
+            onmouseover="this.style.background='#2d5431'"
+            onmouseout="this.style.background='var(--sage)'">
+            Send it →
+          </button>
+        </div>
+        <div id="emailConfirm" style="display:none;margin-top:12px;
+          font-family:var(--lora);font-style:italic;font-size:13px;color:var(--sage);">
+          ✦ On its way. Check your inbox within a few minutes.
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--muted);
+          font-family:var(--sans);">Optional · No spam · Unsubscribe anytime</div>
+      </div>
+
+      <!-- CTA 3 — SECONDARY: See what Ora builds -->
+      <div style="text-align:center;padding:20px 0 8px;">
+        <a href="/" target="_blank" rel="noopener"
+          style="font-family:var(--lora);font-style:italic;font-size:14px;
+          color:var(--muted);text-decoration:none;
+          border-bottom:1px solid rgba(30,26,18,0.15);padding-bottom:2px;
+          transition:color 0.2s ease;"
+          onmouseover="this.style.color='var(--terra)'"
+          onmouseout="this.style.color='var(--muted)'">
+          See what Ora would build to close this gap →
+        </a>
       </div>
     </div>
   </div>
@@ -778,16 +870,37 @@ function fmt(n) {
 // Generate insight text
 function getInsight(monthly, annual, missed, closeRate, serviceVal) {
   const bookedPerWeek = (missed * closeRate / 100).toFixed(1);
-  const signalMonths = Math.ceil(monthly / 297);
 
   if (annual >= 50000) {
-    return `<strong>That's a serious number.</strong> At your volume, the right system pays for itself in days — not months. ${bookedPerWeek} bookings a week are slipping through that AI would have caught.`;
+    return `<strong>That's a serious number.</strong> At your volume, the right system pays for itself in days — not months. ${bookedPerWeek} bookings a week are slipping through that AI would have caught. You've already built something exceptional. When you're ready to protect it, the audit takes 10 minutes.`;
   } else if (annual >= 20000) {
-    return `<strong>${fmt(annual)} a year</strong> is a salary. Or a renovation. Or a month off. It's the kind of number that changes your options — and it's sitting in unanswered calls right now.`;
+    return `<strong>${fmt(annual)} a year</strong> is a salary. A renovation. A month completely off. It's the kind of number that changes your options — and it's sitting in unanswered calls right now. You built something people are already trying to reach. They deserve to get through.`;
   } else if (annual >= 8000) {
-    return `At Signal pricing, Ora pays for itself if it catches just <strong>one of those missed calls per month.</strong> Everything after that is pure recovered revenue.`;
+    return `Ora pays for itself when it catches just <strong>one of those missed calls per month.</strong> Everything after that is pure recovered revenue going back into the practice you built. The practices we work with don't work harder after Ora. They just stop leaving this on the table.`;
   } else {
-    return `Even recovering <strong>half of those missed calls</strong> would more than cover the cost of a full AI system. The math is on your side.`;
+    return `Even recovering <strong>half of those missed calls</strong> covers the full cost of a system that runs 24 hours a day, 7 days a week. The math is straightforward. The decision is simpler than it feels.`;
+  }
+}
+
+// Generate Dickens Pattern text
+function getDickensText(annual, fiveYear) {
+  if (annual >= 50000) {
+    return `That's what staying where you are costs over the next five years. Not because anything goes wrong. Just because nothing changes. <strong style="color:var(--amber-lt);">Or you fix this in 7 days.</strong>`;
+  } else if (annual >= 20000) {
+    return `Five years from now, you'll either look back at this number as what you recovered — or what you left behind. <strong style="color:var(--amber-lt);">The system goes live in 7 days.</strong>`;
+  } else {
+    return `Every year you wait, this number resets. It doesn't get smaller. <strong style="color:var(--amber-lt);">Or you close it in 7 days.</strong>`;
+  }
+}
+
+// Generate future pacing text
+function getFuturePace(annual, serviceVal) {
+  if (serviceVal >= 1000) {
+    return `Imagine checking your phone on a Monday morning. Three new consultation requests came in over the weekend. Each one answered within a second, qualified, confirmed. You were fully present for your family. Your practice was fully present for them.`;
+  } else if (annual >= 20000) {
+    return `Picture your best month ever. Calendar full. Team focused. Not a single lead slipping through after hours. You built a practice people trust — Ora makes sure everyone who tries to reach it gets through.`;
+  } else {
+    return `Imagine checking your phone on a Monday morning and seeing new bookings that came in while you slept. Answered. Qualified. Confirmed. You didn't touch your phone once. That's not a fantasy. That's a system.`;
   }
 }
 
@@ -801,15 +914,21 @@ function calculate() {
   const weeklyLeak = missed * (closeRate / 100) * serviceVal;
   const monthlyLeak = Math.round(weeklyLeak * 4.33);
   const annualLeak = Math.round(weeklyLeak * 52);
+  const fiveYearLeak = annualLeak * 5;
 
   // Update display
   document.getElementById('monthlyLeak').textContent = fmt(monthlyLeak);
   document.getElementById('annualLeak').textContent = fmt(annualLeak);
+  document.getElementById('fiveYearLeak').textContent = fmt(fiveYearLeak);
   document.getElementById('insightText').innerHTML =
     getInsight(monthlyLeak, annualLeak, missed, closeRate, serviceVal);
+  document.getElementById('dickensText').innerHTML =
+    getDickensText(annualLeak, fiveYearLeak);
+  document.getElementById('futurePaceText').innerHTML =
+    getFuturePace(annualLeak, serviceVal);
 
   // Store for sharing
-  window._calcResult = { monthlyLeak, annualLeak, serviceVal, missed, closeRate };
+  window._calcResult = { monthlyLeak, annualLeak, fiveYearLeak, serviceVal, missed, closeRate };
 
   // Show results
   const results = document.getElementById('results');
@@ -915,6 +1034,46 @@ function copyResult() {
       window.prompt('Copy this link:', text);
     }
   );
+}
+
+// Email capture
+function submitEmail() {
+  const input = document.getElementById('emailInput');
+  const confirm = document.getElementById('emailConfirm');
+  const email = input.value.trim();
+
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = 'var(--terra)';
+    input.focus();
+    return;
+  }
+
+  const r = window._calcResult;
+  const subject = encodeURIComponent('Your Revenue Leak Breakdown from Ora');
+  const body = encodeURIComponent(
+    `Hi,\n\nHere's the breakdown from your Revenue Leak Calculator:\n\n` +
+    `Monthly leak: ${r ? fmt(r.monthlyLeak) : 'N/A'}\n` +
+    `Annual leak: ${r ? fmt(r.annualLeak) : 'N/A'}\n\n` +
+    `Three things practices in your niche do to close this gap:\n\n` +
+    `1. AI voice receptionist that answers every call in under a second — 24/7, including after hours and weekends.\n\n` +
+    `2. Automated 60-second follow-up on every form submission and website inquiry before they look elsewhere.\n\n` +
+    `3. Appointment booking that happens automatically — no phone tag, no back and forth, just a confirmed slot on your calendar.\n\n` +
+    `When you're ready to see exactly what we'd build for your practice:\n` +
+    `cal.com/withora/free-audit\n\n` +
+    `No call. No pitch. Just clarity.\n\n` +
+    `— Maya\nOra · withora.co`
+  );
+
+  // Open mailto as fallback — in Month 2 replace with GHL webhook
+  window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+  // Show confirmation
+  input.style.display = 'none';
+  input.nextElementSibling.style.display = 'none';
+  confirm.style.display = 'block';
+
+  // Also log to console for now
+  console.log('Email captured:', email, r);
 }
 
 // Allow enter key to calculate
