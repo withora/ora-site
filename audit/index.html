@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Audit — Ora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e6;
+  --warm: #fdf9f2;
+  --terra: #c04820;
+  --terra-dk: #8c3214;
+  --terra-lt: #f2c4b0;
+  --terra-pale: #fdeee8;
+  --sage: #3a6b3e;
+  --sage-pale: #eaf2ea;
+  --sage-lt: #a8c9aa;
+  --amber: #d4860a;
+  --amber-lt: #f5d898;
+  --ink: #1e1a12;
+  --ink-soft: #4a4030;
+  --muted: rgba(30,26,18,0.44);
+  --border: rgba(30,26,18,0.1);
+  --serif: 'Fraunces', Georgia, serif;
+  --lora: 'Lora', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(192,72,32,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 85%, rgba(58,107,62,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 60% 40%, rgba(212,134,10,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 100px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.ora-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+.ora-domain {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.eyebrow {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--terra);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: '';
+  width: 20px;
+  height: 1.5px;
+  background: var(--terra-lt);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 6vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--terra);
+}
+
+.subtitle {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* PROGRESS */
+.progress-wrap {
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 10px;
+}
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.step-dot.active {
+  background: var(--terra);
+  border-color: var(--terra);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(192,72,32,0.35);
+}
+.step-dot.done {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #fff;
+}
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  max-width: 48px;
+  transition: background 0.3s ease;
+}
+.step-line.done {
+  background: var(--sage-lt);
+}
+.progress-label {
+  text-align: center;
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* CARD */
+.card {
+  background: var(--warm);
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  padding: 40px 40px 36px;
+  box-shadow:
+    0 4px 24px rgba(30,26,18,0.06),
+    0 1px 4px rgba(30,26,18,0.04);
+  animation: fadeUp 0.6s ease 0.15s both;
+}
+
+/* STEP PANELS */
+.step-panel {
+  display: none;
+}
+.step-panel.active {
+  display: block;
+  animation: fadeUp 0.4s ease both;
+}
+
+.step-heading {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.step-sub {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* FIELDS */
+.field {
+  margin-bottom: 22px;
+}
+.field-label {
+  display: block;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.field-hint {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--muted);
+  font-weight: 300;
+}
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--terra);
+  box-shadow: 0 0 0 3px rgba(192,72,32,0.1);
+}
+.input.error,
+.select.error,
+.textarea.error {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(212,134,10,0.12);
+}
+
+.select-wrap {
+  position: relative;
+}
+.select-wrap::after {
+  content: '▾';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 13px;
+}
+.select {
+  cursor: pointer;
+  padding-right: 36px;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 90px;
+  line-height: 1.6;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* CHECKBOX GROUP */
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.check-item:hover {
+  border-color: var(--terra-lt);
+  background: var(--terra-pale);
+}
+.check-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--terra);
+  margin-top: 1px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.check-item.checked {
+  border-color: var(--terra);
+  background: var(--terra-pale);
+}
+.check-label {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+/* PREFIX INPUT */
+.prefix-wrap {
+  position: relative;
+}
+.prefix-wrap .prefix {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--terra);
+  pointer-events: none;
+}
+.prefix-wrap .input {
+  padding-left: 28px;
+}
+
+/* OPTIONAL TAG */
+.optional {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1px 8px;
+  margin-left: 8px;
+}
+
+/* NAVIGATION */
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  gap: 12px;
+}
+.btn-back {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 22px;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+}
+.btn-back:hover {
+  border-color: var(--ink-soft);
+  background: var(--cream);
+}
+.btn-next {
+  flex: 1;
+  background: var(--terra);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 24px;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 18px rgba(192,72,32,0.28);
+  position: relative;
+  overflow: hidden;
+}
+.btn-next::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.btn-next:hover {
+  background: var(--terra-dk);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(192,72,32,0.38);
+}
+.btn-next:active {
+  transform: translateY(0);
+}
+.btn-next.full {
+  flex: none;
+  width: 100%;
+}
+
+.error-msg {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--amber);
+  margin-top: 6px;
+  display: none;
+}
+.error-msg.visible {
+  display: block;
+}
+
+/* SUCCESS */
+.success-panel {
+  display: none;
+  text-align: center;
+  padding: 16px 0 8px;
+}
+.success-panel.active {
+  display: block;
+  animation: fadeUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.success-glyph {
+  font-size: 32px;
+  color: var(--amber);
+  margin-bottom: 20px;
+  display: block;
+}
+.success-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 5vw, 34px);
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.success-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--terra);
+}
+.success-body {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 380px;
+  margin: 0 auto 28px;
+}
+.success-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sage-pale);
+  border: 1.5px solid rgba(58,107,62,0.15);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--sage);
+  font-weight: 500;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  margin-top: 48px;
+  animation: fadeUp 0.6s ease 0.3s both;
+}
+.footer-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.footer-text {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE */
+@media (max-width: 520px) {
+  .card { padding: 28px 22px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .nav-row { flex-direction: column-reverse; }
+  .btn-back { width: 100%; }
+  .btn-next { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="ora-mark">
+      <svg width="22" height="26" viewBox="0 0 90 108" fill="none">
+        <path d="M45 102C43 88 47 74 44 62C42 50 46 38 44 28C42 18 46 10 45 4"
+          stroke="#1e1a12" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M44 72C34 70 22 64 16 54C10 44 16 34 26 38C34 42 44 58 44 68Z"
+          fill="#3a6b3e" stroke="rgba(30,26,18,0.28)" stroke-width="1.2"/>
+        <path d="M44 54C55 46 68 42 74 34C80 26 74 16 66 20C58 24 44 44 44 52Z"
+          fill="#3a6b3e" opacity=".8" stroke="rgba(30,26,18,0.22)" stroke-width="1.2"/>
+        <path d="M44 34C37 28 32 20 36 14C40 10 46 14 46 24Z"
+          fill="#3a6b3e" opacity=".6"/>
+        <circle cx="45" cy="4" r="14" fill="#c04820" stroke="rgba(30,26,18,0.3)" stroke-width="1.2"/>
+        <circle cx="45" cy="4" r="6" fill="#d4860a" opacity=".92"/>
+        <circle cx="16" cy="54" r="6" fill="#d4860a"/>
+      </svg>
+      <span style="display:inline-flex;align-items:center;">
+        <svg width="18" height="20" viewBox="0 0 34 36" fill="none">
+          <path d="M17 34C8 32 2 25 2 17C2 8 8 2 17 2C26 2 32 8 32 17C32 26 26 36 17 34Z" fill="#c04820"/>
+          <ellipse cx="17" cy="17" rx="7.5" ry="9.5" fill="#f5f0e6"/>
+        </svg>
+        <span style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;
+          color:#1e1a12;margin-left:-1px;line-height:1;">ra</span>
+      </span>
+      <span class="ora-domain">withora.co</span>
+    </div>
+
+    <div class="eyebrow">Free audit</div>
+    <h1>Tell us about<br>your <em>practice.</em></h1>
+    <p class="subtitle">Takes about 10 minutes. Your numbers land in your inbox within 24 hours. No call, no pitch.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-steps">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-line" id="line2"></div>
+      <div class="step-dot" id="dot3">3</div>
+      <div class="step-line" id="line3"></div>
+      <div class="step-dot" id="dot4">4</div>
+      <div class="step-line" id="line4"></div>
+      <div class="step-dot" id="dot5">5</div>
+    </div>
+    <div class="progress-label" id="progressLabel">Step 1 of 5 — Your business</div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="card">
+
+    <!-- STEP 1: About your business -->
+    <div class="step-panel active" id="step1">
+      <div class="step-heading">Let's start with the basics.</div>
+      <div class="step-sub">Tell us who you are and what you do.</div>
+
+      <div class="field">
+        <label class="field-label" for="bizName">Business name</label>
+        <input class="input" type="text" id="bizName" placeholder="e.g. Radiant Skin Medspa" autocomplete="organization">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="bizType">Type of business</label>
+        <div class="select-wrap">
+          <select class="select" id="bizType">
+            <option value="" disabled selected>Select your niche</option>
+            <option value="Medical / Dental Practice">Medical / Dental Practice</option>
+            <option value="Med Spa / Aesthetic Clinic">Med Spa / Aesthetic Clinic</option>
+            <option value="Beauty / Wellness">Beauty / Wellness (lash, esthetics, massage)</option>
+            <option value="Fitness / Movement">Fitness / Movement (trainer, studio, gym)</option>
+            <option value="Legal / Professional Services">Legal / Professional Services</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Home / Trade Services">Home / Trade Services</option>
+            <option value="Other">Other local service business</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="bizCity">City</label>
+          <input class="input" type="text" id="bizCity" placeholder="San Antonio" autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label class="field-label" for="bizState">State</label>
+          <input class="input" type="text" id="bizState" placeholder="TX" maxlength="2" autocomplete="address-level1">
+        </div>
+      </div>
+
+      <div id="error1" class="error-msg">Please fill in your business name, type, and city.</div>
+
+      <div class="nav-row">
+        <button class="btn-next full" onclick="nextStep(1)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Online presence -->
+    <div class="step-panel" id="step2">
+      <div class="step-heading">Your online presence.</div>
+      <div class="step-sub">This helps us audit your current digital footprint. Skip anything you don't have yet.</div>
+
+      <div class="field">
+        <label class="field-label" for="website">Website URL <span class="optional">optional</span></label>
+        <input class="input" type="url" id="website" placeholder="https://yourpractice.com" autocomplete="url">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="instagram">Instagram handle <span class="optional">optional</span></label>
+        <input class="input" type="text" id="instagram" placeholder="@yourhandle">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="googleProfile">Do you have a Google Business Profile?</label>
+        <div class="select-wrap">
+          <select class="select" id="googleProfile">
+            <option value="" disabled selected>Select one</option>
+            <option value="Yes, fully set up">Yes, fully set up</option>
+            <option value="Yes, but not maintained">Yes, but I don't really maintain it</option>
+            <option value="No">No, not yet</option>
+            <option value="Not sure">Not sure</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="bookingSystem">Current booking system</label>
+        <div class="select-wrap">
+          <select class="select" id="bookingSystem">
+            <option value="" disabled selected>How do clients book with you?</option>
+            <option value="Phone calls only">Phone calls only</option>
+            <option value="Online booking system">Online booking system</option>
+            <option value="Mix of phone and online">Mix of phone and online</option>
+            <option value="Walk-ins only">Walk-ins only</option>
+            <option value="DMs and texts">DMs and texts</option>
+            <option value="No real system">No real system yet</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="error2" class="error-msg">Please answer the Google Profile and booking questions.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(2)">← Back</button>
+        <button class="btn-next" onclick="nextStep(2)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: The numbers -->
+    <div class="step-panel" id="step3">
+      <div class="step-heading">The numbers.</div>
+      <div class="step-sub">Rough estimates are fine. We use this to calculate your opportunity.</div>
+
+      <div class="field">
+        <label class="field-label" for="serviceValue">Average value of one appointment or service</label>
+        <div class="prefix-wrap">
+          <span class="prefix">$</span>
+          <input class="input" type="number" id="serviceValue" placeholder="250" min="0" max="100000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="missedCalls">Estimated missed calls or unanswered messages per week</label>
+        <div class="select-wrap">
+          <select class="select" id="missedCalls">
+            <option value="" disabled selected>Choose a range</option>
+            <option value="1-3">1 to 3 per week</option>
+            <option value="4-7">4 to 7 per week</option>
+            <option value="8-15">8 to 15 per week</option>
+            <option value="15+">More than 15 per week</option>
+            <option value="Not sure">Honestly not sure</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="followUpSpeed">How quickly do you typically follow up with new inquiries?</label>
+        <div class="select-wrap">
+          <select class="select" id="followUpSpeed">
+            <option value="" disabled selected>Select one</option>
+            <option value="Within an hour">Within an hour</option>
+            <option value="Same day">Same day, when I get a chance</option>
+            <option value="Next day">Next day</option>
+            <option value="Whenever I remember">Whenever I remember</option>
+            <option value="No real system">I don't have a follow-up system</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="monthlyRevenue">Current monthly revenue range <span class="optional">optional</span></label>
+        <div class="select-wrap">
+          <select class="select" id="monthlyRevenue">
+            <option value="" disabled selected>Select a range</option>
+            <option value="Under $5k">Under $5k / month</option>
+            <option value="$5k - $15k">$5k to $15k / month</option>
+            <option value="$15k - $40k">$15k to $40k / month</option>
+            <option value="$40k - $100k">$40k to $100k / month</option>
+            <option value="$100k+">$100k+ / month</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="error3" class="error-msg">Please fill in your service value and answer the follow-up question.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(3)">← Back</button>
+        <button class="btn-next" onclick="nextStep(3)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: The gap -->
+    <div class="step-panel" id="step4">
+      <div class="step-heading">Where it hurts.</div>
+      <div class="step-sub">Select everything that feels true right now. The more honest you are, the more useful your audit will be.</div>
+
+      <div class="field">
+        <label class="field-label">Biggest growth challenges right now</label>
+        <div class="check-group">
+          <label class="check-item" id="chk-missed">
+            <input type="checkbox" value="Missing calls and leads">
+            <span class="check-label">Missing calls or leads while I'm busy</span>
+          </label>
+          <label class="check-item" id="chk-followup">
+            <input type="checkbox" value="Slow follow-up">
+            <span class="check-label">Following up too slowly and losing clients to competitors</span>
+          </label>
+          <label class="check-item" id="chk-booking">
+            <input type="checkbox" value="No online booking">
+            <span class="check-label">No easy way for clients to book online</span>
+          </label>
+          <label class="check-item" id="chk-reviews">
+            <input type="checkbox" value="Inconsistent reviews">
+            <span class="check-label">Inconsistent or too-few online reviews</span>
+          </label>
+          <label class="check-item" id="chk-newclients">
+            <input type="checkbox" value="Not enough new clients">
+            <span class="check-label">Not enough new clients coming in</span>
+          </label>
+          <label class="check-item" id="chk-admin">
+            <input type="checkbox" value="Too much admin">
+            <span class="check-label">Too much time on admin, not enough on clients</span>
+          </label>
+          <label class="check-item" id="chk-visibility">
+            <input type="checkbox" value="Low online visibility">
+            <span class="check-label">Hard to find online compared to competitors</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="goodMonth">What does a genuinely good month look like for your business? <span class="optional">optional</span></label>
+        <textarea class="textarea" id="goodMonth" placeholder="e.g. Fully booked three weeks in advance, 40 new clients, $30k in revenue..."></textarea>
+      </div>
+
+      <div id="error4" class="error-msg">Please select at least one challenge.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(4)">← Back</button>
+        <button class="btn-next" onclick="nextStep(4)">Next →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Contact -->
+    <div class="step-panel" id="step5">
+      <div class="step-heading">Last step.</div>
+      <div class="step-sub">Where should we send your audit? We'll have it to you within 24 hours.</div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="firstName">First name</label>
+          <input class="input" type="text" id="firstName" placeholder="Your name" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label class="field-label" for="lastName">Last name <span class="optional">optional</span></label>
+          <input class="input" type="text" id="lastName" placeholder="Last name" autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="email">Email address</label>
+        <input class="input" type="email" id="email" placeholder="you@yourpractice.com" autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="phone">Phone number <span class="optional">optional</span></label>
+        <input class="input" type="tel" id="phone" placeholder="(210) 555-0000" autocomplete="tel">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="anythingElse">Anything else you want us to know? <span class="optional">optional</span></label>
+        <textarea class="textarea" id="anythingElse" placeholder="Specific goals, concerns, questions..."></textarea>
+      </div>
+
+      <div id="error5" class="error-msg">Please enter your first name and email address.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(5)">← Back</button>
+        <button class="btn-next" onclick="submitForm()" id="submitBtn">Send my audit →</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-panel" id="successPanel">
+      <span class="success-glyph">✦</span>
+      <div class="success-title">Your audit is<br><em>on its way.</em></div>
+      <p class="success-body">
+        We review every submission personally and send your numbers within 24 hours.
+        Keep an eye on your inbox for a message from hello@withora.co.
+      </p>
+      <div class="success-note">
+        📬 Check your spam folder if you don't see it tomorrow.
+      </div>
+    </div>
+
+  </div><!-- end card -->
+
+  <!-- FOOTER -->
+  <div class="footer" id="footerEl">
+    <div class="footer-mark">
+      <svg width="14" height="17" viewBox="0 0 90 108" fill="none">
+        <path d="M45 102C43 88 47 74 44 62C42 50 46 38 44 28C42 18 46 10 45 4"
+          stroke="rgba(30,26,18,0.3)" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M44 72C34 70 22 64 16 54C10 44 16 34 26 38C34 42 44 58 44 68Z"
+          fill="rgba(58,107,62,0.4)"/>
+        <circle cx="45" cy="4" r="14" fill="rgba(192,72,32,0.35)"/>
+      </svg>
+      <span style="font-family:'Lora',serif;font-style:italic;font-size:12px;
+        color:rgba(30,26,18,0.3);">withora.co</span>
+    </div>
+    <div class="footer-text">AI systems for local businesses · Built by Ora</div>
+  </div>
+
+</div><!-- end wrapper -->
+
+<script>
+// ── CONFIGURATION ─────────────────────────────────────────────
+// Paste your GHL webhook URL here after creating the workflow
+const GHL_WEBHOOK_URL = 'YOUR_GHL_WEBHOOK_URL_HERE';
+// ─────────────────────────────────────────────────────────────
+
+let currentStep = 1;
+const totalSteps = 5;
+
+const stepLabels = [
+  'Step 1 of 5 — Your business',
+  'Step 2 of 5 — Online presence',
+  'Step 3 of 5 — The numbers',
+  'Step 4 of 5 — Where it hurts',
+  'Step 5 of 5 — Contact'
+];
+
+function updateProgress(step) {
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('dot' + i);
+    if (i < step) {
+      dot.className = 'step-dot done';
+      dot.innerHTML = '✓';
+    } else if (i === step) {
+      dot.className = 'step-dot active';
+      dot.innerHTML = i;
+    } else {
+      dot.className = 'step-dot';
+      dot.innerHTML = i;
+    }
+    if (i < totalSteps) {
+      const line = document.getElementById('line' + i);
+      line.className = i < step ? 'step-line done' : 'step-line';
+    }
+  }
+  document.getElementById('progressLabel').textContent = stepLabels[step - 1];
+}
+
+function showError(id, show) {
+  const el = document.getElementById(id);
+  el.className = show ? 'error-msg visible' : 'error-msg';
+}
+
+function validateStep(step) {
+  if (step === 1) {
+    const name = document.getElementById('bizName').value.trim();
+    const type = document.getElementById('bizType').value;
+    const city = document.getElementById('bizCity').value.trim();
+    if (!name || !type || !city) {
+      showError('error1', true);
+      return false;
+    }
+    showError('error1', false);
+    return true;
+  }
+  if (step === 2) {
+    const google = document.getElementById('googleProfile').value;
+    const booking = document.getElementById('bookingSystem').value;
+    if (!google || !booking) {
+      showError('error2', true);
+      return false;
+    }
+    showError('error2', false);
+    return true;
+  }
+  if (step === 3) {
+    const val = document.getElementById('serviceValue').value.trim();
+    const followUp = document.getElementById('followUpSpeed').value;
+    if (!val || !followUp) {
+      showError('error3', true);
+      return false;
+    }
+    showError('error3', false);
+    return true;
+  }
+  if (step === 4) {
+    const checked = document.querySelectorAll('.check-group input[type="checkbox"]:checked');
+    if (checked.length === 0) {
+      showError('error4', true);
+      return false;
+    }
+    showError('error4', false);
+    return true;
+  }
+  if (step === 5) {
+    const fname = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!fname || !emailValid) {
+      showError('error5', true);
+      if (!emailValid && email) {
+        document.getElementById('email').classList.add('error');
+      }
+      return false;
+    }
+    showError('error5', false);
+    document.getElementById('email').classList.remove('error');
+    return true;
+  }
+  return true;
+}
+
+function nextStep(from) {
+  if (!validateStep(from)) return;
+  document.getElementById('step' + from).classList.remove('active');
+  currentStep = from + 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateProgress(currentStep);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevStep(from) {
+  document.getElementById('step' + from).classList.remove('active');
+  currentStep = from - 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateProgress(currentStep);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Checkbox visual toggle
+document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
+  cb.addEventListener('change', function() {
+    this.closest('.check-item').classList.toggle('checked', this.checked);
+  });
+});
+
+function collectData() {
+  const challenges = [];
+  document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach(cb => {
+    challenges.push(cb.value);
+  });
+
+  return {
+    // Contact
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+
+    // Business
+    businessName: document.getElementById('bizName').value.trim(),
+    businessType: document.getElementById('bizType').value,
+    city: document.getElementById('bizCity').value.trim(),
+    state: document.getElementById('bizState').value.trim(),
+
+    // Online presence
+    website: document.getElementById('website').value.trim(),
+    instagram: document.getElementById('instagram').value.trim(),
+    googleProfile: document.getElementById('googleProfile').value,
+    bookingSystem: document.getElementById('bookingSystem').value,
+
+    // Numbers
+    avgServiceValue: document.getElementById('serviceValue').value.trim(),
+    missedCallsPerWeek: document.getElementById('missedCalls').value,
+    followUpSpeed: document.getElementById('followUpSpeed').value,
+    monthlyRevenue: document.getElementById('monthlyRevenue').value,
+
+    // Gap
+    challenges: challenges.join(', '),
+    goodMonth: document.getElementById('goodMonth').value.trim(),
+    anythingElse: document.getElementById('anythingElse').value.trim(),
+
+    // Meta
+    source: 'Ora Free Audit Form',
+    tags: ['audit-request', 'ora-form'],
+    submittedAt: new Date().toISOString()
+  };
+}
+
+function submitForm() {
+  if (!validateStep(5)) return;
+
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const data = collectData();
+
+  // Fire to GHL webhook
+  if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'YOUR_GHL_WEBHOOK_URL_HERE') {
+    fetch(GHL_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).catch(err => console.warn('GHL webhook:', err));
+  }
+
+  // Show success after short delay
+  setTimeout(() => {
+    // Hide form elements
+    for (let i = 1; i <= totalSteps; i++) {
+      const panel = document.getElementById('step' + i);
+      if (panel) panel.classList.remove('active');
+    }
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('successPanel').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 800);
+}
+
+// Allow enter key to advance
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'SELECT') {
+    if (currentStep < totalSteps) {
+      nextStep(currentStep);
+    } else if (currentStep === totalSteps) {
+      submitForm();
+    }
+  }
+});
+</script>
+</body>
+</html>
