@@ -883,7 +883,7 @@ h1 em {
 <script>
 // ── CONFIGURATION ─────────────────────────────────────────────
 // Paste your GHL webhook URL here after creating the workflow
-const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/92225527-67bb-4216-b803-a8c0a3448a7d';
+const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/09bc1146-c810-4412-a2a0-1aa862132c7b';
 // ─────────────────────────────────────────────────────────────
 
 let currentStep = 1;
@@ -1059,7 +1059,7 @@ function submitForm() {
   const data = collectData();
 
   // Fire to GHL webhook
-  if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/92225527-67bb-4216-b803-a8c0a3448a7d') {
+  if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/09bc1146-c810-4412-a2a0-1aa862132c7b') {
     fetch(GHL_WEBHOOK_URL, {
       method: 'POST',
       mode: 'no-cors',
