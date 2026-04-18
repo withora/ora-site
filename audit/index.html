@@ -1059,7 +1059,7 @@ function submitForm() {
   const data = collectData();
 
   // Fire to GHL webhook
-  if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'YOUR_GHL_WEBHOOK_URL_HERE') {
+  if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/92225527-67bb-4216-b803-a8c0a3448a7d') {
     fetch(GHL_WEBHOOK_URL, {
       method: 'POST',
       mode: 'no-cors',
