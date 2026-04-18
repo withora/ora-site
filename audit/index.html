@@ -883,7 +883,7 @@ h1 em {
 <script>
 // ── CONFIGURATION ─────────────────────────────────────────────
 // Paste your GHL webhook URL here after creating the workflow
-const GHL_WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/09bc1146-c810-4412-a2a0-1aa862132c7b';
+const GHL_WEBHOOK_URL = 'YOUR_GHL_WEBHOOK_URL_HERE';
 // ─────────────────────────────────────────────────────────────
 
 let currentStep = 1;
@@ -1058,19 +1058,16 @@ function submitForm() {
 
   const data = collectData();
 
-  // Fire to GHL webhook
-  if (GHL_WEBHOOK_URL && GHL_WEBHOOK_URL !== 'YOUR_GHL_WEBHOOK_URL_HERE') {
-    fetch(GHL_WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    }).catch(err => console.warn('GHL webhook:', err));
-  }
+  // Fire to GHL webhook — always
+  fetch('https://services.leadconnectorhq.com/hooks/yvyjFNqyLNOzPlnTnCMj/webhook-trigger/09bc1146-c810-4412-a2a0-1aa862132c7b', {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(err => console.warn('GHL webhook error:', err));
 
   // Show success after short delay
   setTimeout(() => {
-    // Hide form elements
     for (let i = 1; i <= totalSteps; i++) {
       const panel = document.getElementById('step' + i);
       if (panel) panel.classList.remove('active');
