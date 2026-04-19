@@ -1688,7 +1688,11 @@ function nextStep(from) {
   currentStep = from + 1;
   document.getElementById('step' + currentStep).classList.add('active');
   // Ensure tier fields are visible on step 5
-  if (currentStep === 5) showTierFields(selectedTier);
+  if (currentStep === 5) {
+  const tier = selectedTier || document.getElementById('tierSelect').value;
+  selectedTier = tier;
+  showTierFields(tier);
+}
   updateProgress(currentStep);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
