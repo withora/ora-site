@@ -1652,11 +1652,13 @@ function validateStep(step) {
           if (!el.value.trim()) { el.classList.add('error'); valid = false; }
           else el.classList.remove('error');
         });
-        // HIPAA checkbox
-        const hipaa = document.getElementById('med_hipaaAck');
-        if (hipaa && !hipaa.checked) {
-          document.getElementById('chk-hipaa').style.borderColor = 'var(--amber)';
-          valid = false;
+        // HIPAA checkbox — only required for medical niche
+        if (selectedNiche === 'Medical / Dental Practice') {
+          const hipaa = document.getElementById('med_hipaaAck');
+          if (hipaa && !hipaa.checked) {
+            document.getElementById('chk-hipaa').style.borderColor = 'var(--amber)';
+            valid = false;
+          }
         }
       }
     }
