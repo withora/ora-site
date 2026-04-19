@@ -1017,43 +1017,52 @@ document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
   });
 });
 
+// Phone auto-format to E.164 for GHL (+12105550000)
+function formatPhone(raw) {
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length === 10) return '+1' + digits;
+  if (digits.length === 11 && digits[0] === '1') return '+' + digits;
+  return digits.length > 0 ? '+' + digits : '';
+}
+
+// Live phone formatting as user types — shows (210) 555-0000
+document.getElementById('phone').addEventListener('input', function() {
+  let digits = this.value.replace(/\D/g, '').slice(0, 10);
+  let formatted = '';
+  if (digits.length > 0) formatted = '(' + digits.slice(0, 3);
+  if (digits.length >= 4) formatted += ') ' + digits.slice(3, 6);
+  if (digits.length >= 7) formatted += '-' + digits.slice(6, 10);
+  this.value = formatted;
+});
+
 function collectData() {
   const challenges = [];
   document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach(cb => {
     challenges.push(cb.value);
   });
 
+  const rawPhone = document.getElementById('phone').value.trim();
+
   return {
-    // Contact
     firstName: document.getElementById('firstName').value.trim(),
     lastName: document.getElementById('lastName').value.trim(),
     email: document.getElementById('email').value.trim(),
-    phone: document.getElementById('phone').value.trim(),
-
-    // Business
+    phone: formatPhone(rawPhone),
     businessName: document.getElementById('bizName').value.trim(),
     businessType: document.getElementById('bizType').value,
     city: document.getElementById('bizCity').value.trim(),
     state: document.getElementById('bizState').value.trim(),
-
-    // Online presence
     website: document.getElementById('website').value.trim(),
     instagram: document.getElementById('instagram').value.trim(),
     googleProfile: document.getElementById('googleProfile').value,
     bookingSystem: document.getElementById('bookingSystem').value,
-
-    // Numbers
     avgServiceValue: document.getElementById('serviceValue').value.trim(),
     missedCallsPerWeek: document.getElementById('missedCalls').value,
     followUpSpeed: document.getElementById('followUpSpeed').value,
     monthlyRevenue: document.getElementById('monthlyRevenue').value,
-
-    // Gap
     challenges: challenges.join(', '),
     goodMonth: document.getElementById('goodMonth').value.trim(),
     anythingElse: document.getElementById('anythingElse').value.trim(),
-
-    // Meta
     source: 'Ora Free Audit Form',
     tags: ['audit-request', 'ora-form'],
     submittedAt: new Date().toISOString()
@@ -1069,15 +1078,13 @@ function submitForm() {
 
   const data = collectData();
 
-  // Fire to GHL webhook — always
+  // Proper CORS fetch -- sends real JSON Make can parse as individual fields
   fetch('https://hook.us2.make.com/3ffw52ydw3fht8rqk5mb6p4uw37xm92t', {
     method: 'POST',
-    mode: 'no-cors',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
-  }).catch(err => console.warn('GHL webhook error:', err));
+  }).catch(err => console.warn('Webhook error:', err));
 
-  // Show success after short delay
   setTimeout(() => {
     for (let i = 1; i <= totalSteps; i++) {
       const panel = document.getElementById('step' + i);
