@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome to Ora — Let's Build Your System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,700&family=Lora:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5f0e6;
+  --warm: #fdf9f2;
+  --terra: #c04820;
+  --terra-dk: #8c3214;
+  --terra-lt: #f2c4b0;
+  --terra-pale: #fdeee8;
+  --sage: #3a6b3e;
+  --sage-pale: #eaf2ea;
+  --sage-lt: #a8c9aa;
+  --amber: #d4860a;
+  --amber-lt: #f5d898;
+  --ink: #1e1a12;
+  --ink-soft: #4a4030;
+  --muted: rgba(30,26,18,0.44);
+  --border: rgba(30,26,18,0.1);
+  --serif: 'Fraunces', Georgia, serif;
+  --lora: 'Lora', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(192,72,32,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 85%, rgba(58,107,62,0.05) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 60% 40%, rgba(212,134,10,0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 48px 24px 100px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.ora-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+.ora-domain {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.eyebrow {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--terra);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.eyebrow::before, .eyebrow::after {
+  content: '';
+  width: 20px;
+  height: 1.5px;
+  background: var(--terra-lt);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 6vw, 44px);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+h1 em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--terra);
+}
+
+.subtitle {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+/* TIER BADGE */
+.tier-detected-badge {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--sage-pale);
+  border: 1.5px solid rgba(58,107,62,0.2);
+  border-radius: 24px;
+  padding: 8px 18px;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sage);
+  margin: 0 auto 20px;
+  width: fit-content;
+}
+
+/* PROGRESS */
+.progress-wrap {
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 10px;
+}
+.step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--warm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.step-dot.active {
+  background: var(--terra);
+  border-color: var(--terra);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(192,72,32,0.35);
+}
+.step-dot.done {
+  background: var(--sage);
+  border-color: var(--sage);
+  color: #fff;
+}
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  max-width: 48px;
+  transition: background 0.3s ease;
+}
+.step-line.done { background: var(--sage-lt); }
+.progress-label {
+  text-align: center;
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* CARD */
+.card {
+  background: var(--warm);
+  border: 1.5px solid var(--border);
+  border-radius: 24px;
+  padding: 40px 40px 36px;
+  box-shadow:
+    0 4px 24px rgba(30,26,18,0.06),
+    0 1px 4px rgba(30,26,18,0.04);
+  animation: fadeUp 0.6s ease 0.15s both;
+}
+
+.step-panel { display: none; }
+.step-panel.active {
+  display: block;
+  animation: fadeUp 0.4s ease both;
+}
+
+.step-heading {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+.step-sub {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+/* NICHE SECTION BADGE */
+.niche-context {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--terra-pale);
+  border: 1.5px solid rgba(192,72,32,0.15);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--terra);
+  margin-bottom: 20px;
+  display: none;
+}
+
+/* FIELDS */
+.field { margin-bottom: 22px; }
+.field-label {
+  display: block;
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.field-hint {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.input, .select, .textarea {
+  width: 100%;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.input::placeholder, .textarea::placeholder { color: var(--muted); font-weight: 300; }
+.input:focus, .select:focus, .textarea:focus {
+  border-color: var(--terra);
+  box-shadow: 0 0 0 3px rgba(192,72,32,0.1);
+}
+.input.error, .select.error, .textarea.error {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(212,134,10,0.12);
+}
+
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: '▾';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  pointer-events: none;
+  font-size: 13px;
+}
+.select { cursor: pointer; padding-right: 36px; }
+.textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* CHECK GROUP */
+.check-group { display: flex; flex-direction: column; gap: 8px; }
+.check-group.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.check-item:hover { border-color: var(--terra-lt); background: var(--terra-pale); }
+.check-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--terra);
+  margin-top: 1px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.check-item.checked { border-color: var(--terra); background: var(--terra-pale); }
+.check-label {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+/* PREFIX INPUT */
+.prefix-wrap { position: relative; }
+.prefix-wrap .prefix {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--terra);
+  pointer-events: none;
+}
+.prefix-wrap .input { padding-left: 28px; }
+
+/* OPTIONAL TAG */
+.optional {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 10px;
+  color: var(--muted);
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1px 8px;
+  margin-left: 8px;
+}
+
+/* REVEAL */
+.reveal-target { display: none; margin-top: 12px; }
+.reveal-target.visible { display: block; }
+
+/* SECTION RULE */
+.field-section-rule {
+  border: none;
+  border-top: 1px dashed rgba(30,26,18,0.1);
+  margin: 24px 0 20px;
+}
+
+/* TIER SECTION LABEL */
+.tier-section-label {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--amber);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tier-section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(212,134,10,0.25);
+}
+
+/* HIPAA NOTE */
+.notice-block {
+  background: var(--sage-pale);
+  border: 1.5px solid rgba(58,107,62,0.2);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--sage);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+/* NAVIGATION */
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  gap: 12px;
+}
+.btn-back {
+  background: none;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 22px;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: -0.01em;
+}
+.btn-back:hover { border-color: var(--ink-soft); background: var(--cream); }
+.btn-next {
+  flex: 1;
+  background: var(--terra);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 24px;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 18px rgba(192,72,32,0.28);
+  position: relative;
+  overflow: hidden;
+}
+.btn-next::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.btn-next:hover { background: var(--terra-dk); transform: translateY(-1px); box-shadow: 0 6px 24px rgba(192,72,32,0.38); }
+.btn-next:active { transform: translateY(0); }
+.btn-next.full { flex: none; width: 100%; }
+.btn-next:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.error-msg {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--amber);
+  margin-top: 6px;
+  display: none;
+}
+.error-msg.visible { display: block; }
+
+/* SUCCESS */
+.success-panel { display: none; text-align: center; padding: 16px 0 8px; }
+.success-panel.active {
+  display: block;
+  animation: fadeUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.success-glyph { font-size: 32px; color: var(--amber); margin-bottom: 20px; display: block; }
+.success-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 5vw, 34px);
+  font-weight: 900;
+  color: var(--ink);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.success-title em { font-style: italic; font-weight: 300; color: var(--terra); }
+.success-body {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 380px;
+  margin: 0 auto 28px;
+}
+.success-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sage-pale);
+  border: 1.5px solid rgba(58,107,62,0.15);
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--sage);
+  font-weight: 500;
+}
+
+/* FOOTER */
+.footer { text-align: center; margin-top: 48px; animation: fadeUp 0.6s ease 0.3s both; }
+.footer-text { font-family: var(--lora); font-style: italic; font-size: 12px; color: var(--muted); text-decoration: none; }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE */
+@media (max-width: 520px) {
+  .card { padding: 28px 22px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .check-group.grid-2 { grid-template-columns: 1fr; }
+  .nav-row { flex-direction: column-reverse; }
+  .btn-back, .btn-next { width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- BACK LINK -->
+  <div style="margin-bottom:32px;animation:fadeUp 0.5s ease both;">
+    <a href="/" style="display:inline-flex;align-items:center;gap:6px;
+      font-family:'Lora',serif;font-style:italic;font-size:13px;
+      color:rgba(30,26,18,0.4);text-decoration:none;transition:color 0.2s ease;"
+      onmouseover="this.style.color='#c04820'"
+      onmouseout="this.style.color='rgba(30,26,18,0.4)'">
+      ← withora.co
+    </a>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <a href="/" class="ora-mark" style="text-decoration:none;cursor:pointer;">
+      <svg width="22" height="26" viewBox="0 0 90 108" fill="none">
+        <path d="M45 102C43 88 47 74 44 62C42 50 46 38 44 28C42 18 46 10 45 4"
+          stroke="#1e1a12" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M44 72C34 70 22 64 16 54C10 44 16 34 26 38C34 42 44 58 44 68Z"
+          fill="#3a6b3e" stroke="rgba(30,26,18,0.28)" stroke-width="1.2"/>
+        <path d="M44 54C55 46 68 42 74 34C80 26 74 16 66 20C58 24 44 44 44 52Z"
+          fill="#3a6b3e" opacity=".8" stroke="rgba(30,26,18,0.22)" stroke-width="1.2"/>
+        <path d="M44 34C37 28 32 20 36 14C40 10 46 14 46 24Z" fill="#3a6b3e" opacity=".6"/>
+        <circle cx="45" cy="4" r="14" fill="#c04820" stroke="rgba(30,26,18,0.3)" stroke-width="1.2"/>
+        <circle cx="45" cy="4" r="6" fill="#d4860a" opacity=".92"/>
+        <circle cx="16" cy="54" r="6" fill="#d4860a"/>
+      </svg>
+      <span style="display:inline-flex;align-items:center;">
+        <svg width="18" height="20" viewBox="0 0 34 36" fill="none">
+          <path d="M17 34C8 32 2 25 2 17C2 8 8 2 17 2C26 2 32 8 32 17C32 26 26 36 17 34Z" fill="#c04820"/>
+          <ellipse cx="17" cy="17" rx="7.5" ry="9.5" fill="#f5f0e6"/>
+        </svg>
+        <span style="font-family:'Fraunces',serif;font-size:20px;font-weight:700;
+          color:#1e1a12;margin-left:-1px;line-height:1;">ra</span>
+      </span>
+      <span class="ora-domain">withora.co</span>
+    </a>
+
+    <!-- Tier badge (shown when detected from URL) -->
+    <div class="tier-detected-badge" id="tierBadge">
+      <span>✦</span>
+      <span id="tierBadgeLabel">Signal plan</span>
+    </div>
+
+    <div class="eyebrow">Client onboarding</div>
+    <h1>Let's build your <em>system.</em></h1>
+    <p class="subtitle">Ten minutes now. Everything built right the first time. You won't have to explain anything twice.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-steps">
+      <div class="step-dot active" id="dot1">1</div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-dot" id="dot2">2</div>
+      <div class="step-line" id="line2"></div>
+      <div class="step-dot" id="dot3">3</div>
+      <div class="step-line" id="line3"></div>
+      <div class="step-dot" id="dot4">4</div>
+      <div class="step-line" id="line4"></div>
+      <div class="step-dot" id="dot5">5</div>
+    </div>
+    <div class="progress-label" id="progressLabel">Step 1 of 5 — Your business</div>
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="card">
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- STEP 1: Business + Niche + Tier                    -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div class="step-panel active" id="step1">
+      <div class="step-heading">Start here.</div>
+      <div class="step-sub">Tell us who you are and what you do. This drives everything we build for you.</div>
+
+      <div class="field">
+        <label class="field-label" for="bizName">Business name</label>
+        <input class="input" type="text" id="bizName" placeholder="e.g. Radiant Skin Medspa" autocomplete="organization">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="bizType">Type of business</label>
+        <div class="select-wrap">
+          <select class="select" id="bizType">
+            <option value="" disabled selected>Select your niche</option>
+            <option value="Medical / Dental Practice">Medical / Dental Practice</option>
+            <option value="Med Spa / Aesthetic Clinic">Med Spa / Aesthetic Clinic</option>
+            <option value="Beauty / Wellness">Beauty / Wellness (lash, esthetics, massage)</option>
+            <option value="Fitness / Movement">Fitness / Movement (trainer, studio, gym)</option>
+            <option value="Legal / Professional Services">Legal / Professional Services</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Home / Trade Services">Home / Trade Services</option>
+            <option value="Tattoo Studio">Tattoo Studio</option>
+            <option value="Other">Other local service business</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tier select (hidden if URL param present) -->
+      <div class="field" id="tierSelectWrap">
+        <label class="field-label" for="tierSelect">Your Ora plan</label>
+        <div class="select-wrap">
+          <select class="select" id="tierSelect">
+            <option value="" disabled selected>Select your plan</option>
+            <option value="Signal">Signal — $297/mo</option>
+            <option value="Momentum">Momentum — $797/mo</option>
+            <option value="Ascent">Ascent — $1,997/mo</option>
+            <option value="Sovereign">Sovereign — $3,997/mo</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="bizCity">City</label>
+          <input class="input" type="text" id="bizCity" placeholder="San Antonio" autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label class="field-label" for="bizState">State</label>
+          <input class="input" type="text" id="bizState" placeholder="TX" maxlength="2" autocomplete="address-level1">
+        </div>
+      </div>
+
+      <div id="error1" class="error-msg">Please fill in your business name, type, plan, and city.</div>
+
+      <div class="nav-row">
+        <button class="btn-next full" onclick="nextStep(1)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- STEP 2: Contact & Digital Presence                 -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div class="step-panel" id="step2">
+      <div class="step-heading">Contact and presence.</div>
+      <div class="step-sub">How clients find you and how we reach you during setup.</div>
+
+      <div class="field">
+        <label class="field-label" for="bizPhone">Business phone number <span class="field-hint">(the number clients call)</span></label>
+        <input class="input" type="tel" id="bizPhone" placeholder="(210) 555-0000" autocomplete="tel">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="bizAddress">Street address</label>
+        <input class="input" type="text" id="bizAddress" placeholder="123 Main St" autocomplete="street-address">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="bizZip">Zip code</label>
+          <input class="input" type="text" id="bizZip" placeholder="78201" maxlength="5" autocomplete="postal-code">
+        </div>
+        <div class="field">
+          <label class="field-label" for="bizLocations">Number of locations</label>
+          <input class="input" type="number" id="bizLocations" placeholder="1" min="1" max="50">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="website">Website URL <span class="optional">optional</span></label>
+        <input class="input" type="url" id="website" placeholder="https://yourpractice.com" autocomplete="url">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="googleProfile">Google Business Profile URL <span class="optional">optional</span></label>
+        <input class="input" type="url" id="googleProfile" placeholder="https://maps.app.goo.gl/...">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="instagram">Instagram <span class="optional">optional</span></label>
+          <input class="input" type="text" id="instagram" placeholder="@handle">
+        </div>
+        <div class="field">
+          <label class="field-label" for="facebook">Facebook URL <span class="optional">optional</span></label>
+          <input class="input" type="url" id="facebook" placeholder="facebook.com/...">
+        </div>
+      </div>
+
+      <div id="error2" class="error-msg">Please fill in your business phone number and address.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(2)">← Back</button>
+        <button class="btn-next" onclick="nextStep(2)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- STEP 3: Operations                                  -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div class="step-panel" id="step3">
+      <div class="step-heading">How you operate.</div>
+      <div class="step-sub">This shapes your AI system's personality and priorities.</div>
+
+      <div class="field">
+        <label class="field-label" for="primaryService">Your primary service (what you sell most)</label>
+        <input class="input" type="text" id="primaryService" placeholder="e.g. Botox and filler, personal training, family law">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="avgValue">Average value of one client transaction</label>
+        <div class="prefix-wrap">
+          <span class="prefix">$</span>
+          <input class="input" type="number" id="avgValue" placeholder="350" min="0" max="999999">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">Busiest days of the week</label>
+        <div class="check-group grid-2" id="busiestDays">
+          <label class="check-item"><input type="checkbox" value="Monday"><span class="check-label">Monday</span></label>
+          <label class="check-item"><input type="checkbox" value="Tuesday"><span class="check-label">Tuesday</span></label>
+          <label class="check-item"><input type="checkbox" value="Wednesday"><span class="check-label">Wednesday</span></label>
+          <label class="check-item"><input type="checkbox" value="Thursday"><span class="check-label">Thursday</span></label>
+          <label class="check-item"><input type="checkbox" value="Friday"><span class="check-label">Friday</span></label>
+          <label class="check-item"><input type="checkbox" value="Saturday"><span class="check-label">Saturday</span></label>
+          <label class="check-item"><input type="checkbox" value="Sunday"><span class="check-label">Sunday</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label">How clients book right now <span class="field-hint">(select all that apply)</span></label>
+        <div class="check-group" id="bookingMethod">
+          <label class="check-item"><input type="checkbox" value="Phone"><span class="check-label">Phone calls</span></label>
+          <label class="check-item"><input type="checkbox" value="Online booking system"><span class="check-label">Online booking system</span></label>
+          <label class="check-item"><input type="checkbox" value="Walk-in"><span class="check-label">Walk-ins</span></label>
+          <label class="check-item"><input type="checkbox" value="DMs and texts"><span class="check-label">DMs and texts</span></label>
+          <label class="check-item"><input type="checkbox" value="No real system"><span class="check-label">No real system yet</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="currentCRM">Current CRM or software <span class="optional">optional</span></label>
+        <input class="input" type="text" id="currentCRM" placeholder="e.g. Jane App, Mindbody, nothing yet">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="clientComplaint">What's the most common complaint or friction your clients experience?</label>
+        <textarea class="textarea" id="clientComplaint" placeholder="e.g. Hard to reach us, long wait times, can't book online..."></textarea>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="uniqueValue">What does your business do better than anyone else?</label>
+        <textarea class="textarea" id="uniqueValue" placeholder="Your honest answer here — this goes into every piece of content and every AI response."></textarea>
+      </div>
+
+      <div id="error3" class="error-msg">Please fill in your primary service, transaction value, at least one busy day, one booking method, and both text fields.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(3)">← Back</button>
+        <button class="btn-next" onclick="nextStep(3)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- STEP 4: Niche-Specific Fields (Dynamic)            -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div class="step-panel" id="step4">
+      <div class="step-heading" id="step4Heading">Your details.</div>
+      <div class="step-sub" id="step4Sub">A few things we can't look up — tell us how your business actually runs.</div>
+
+      <!-- ─── MEDICAL / DENTAL ─── -->
+      <div class="niche-section" id="niche-medical" style="display:none">
+        <div class="notice-block">Medical and dental practices require a signed Business Associate Agreement (BAA) before build begins. Ora will send this separately after your intake is received.</div>
+
+        <div class="field">
+          <label class="field-label" for="med_specialty">Specialty or practice type</label>
+          <input class="input" type="text" id="med_specialty" data-required="true" placeholder="e.g. Family medicine, cosmetic dentistry, dermatology">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="med_newPatients">Currently accepting new patients?</label>
+          <div class="select-wrap">
+            <select class="select" id="med_newPatients" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Yes">Yes, actively accepting</option>
+              <option value="Limited">Yes, but limited availability</option>
+              <option value="No">No — waitlist only</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="med_insurance">Top insurance plans you accept <span class="optional">optional</span></label>
+          <textarea class="textarea" id="med_insurance" placeholder="e.g. Aetna, Blue Cross Blue Shield, United Healthcare..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="med_ehr">EMR or EHR system you use <span class="optional">optional</span></label>
+          <input class="input" type="text" id="med_ehr" placeholder="e.g. Epic, Athena, DrChrono, none">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="med_onlineAppts">Appointment types to offer for online booking <span class="field-hint">(list all)</span></label>
+          <textarea class="textarea" id="med_onlineAppts" data-required="true" placeholder="e.g. New patient consult, follow-up, annual physical..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="med_phoneOnly">Appointment types that must stay phone-only <span class="optional">optional</span></label>
+          <textarea class="textarea" id="med_phoneOnly" placeholder="e.g. Urgent care, complex procedures..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="check-item" id="chk-hipaa" style="align-items:flex-start;border-color:rgba(58,107,62,0.25);background:var(--sage-pale);">
+            <input type="checkbox" id="med_hipaaAck" value="HIPAA BAA acknowledged" data-required-checkbox="true">
+            <span class="check-label" style="color:var(--sage);">I understand that Ora requires a Business Associate Agreement (BAA) before the system build begins.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ─── MED SPA / AESTHETIC CLINIC ─── -->
+      <div class="niche-section" id="niche-medspa" style="display:none">
+        <div class="field">
+          <label class="field-label" for="spa_services">Full services menu <span class="field-hint">(injectable, laser, body, skin — list all)</span></label>
+          <textarea class="textarea" id="spa_services" data-required="true" placeholder="e.g. Botox, filler, Morpheus8, HydraFacial, body contouring..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_consultRequired">Services that require a consultation before booking</label>
+          <textarea class="textarea" id="spa_consultRequired" data-required="true" placeholder="e.g. Morpheus8, any filler over 2 syringes..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_directBook">Services clients can book directly online</label>
+          <textarea class="textarea" id="spa_directBook" data-required="true" placeholder="e.g. Botox, HydraFacial, any repeat client service..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_memberships">Memberships or packages you offer <span class="optional">optional</span></label>
+          <textarea class="textarea" id="spa_memberships" placeholder="Describe briefly — name, price, what's included..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_depositReq">Deposit required to book?</label>
+          <div class="select-wrap">
+            <select class="select" id="spa_depositReq" data-required="true" onchange="toggleReveal('spa_depositAmt', this.value === 'Yes')">
+              <option value="" disabled selected>Select one</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="reveal-target" id="spa_depositAmt">
+            <div class="prefix-wrap" style="margin-top:10px;">
+              <span class="prefix">$</span>
+              <input class="input" type="number" id="spa_depositAmtVal" placeholder="100" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_providers">Provider names and specialties <span class="optional">optional</span></label>
+          <textarea class="textarea" id="spa_providers" placeholder="e.g. Dr. Reyes — injectables and lasers / Maria — facials and peels..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_calendarType">Provider calendars</label>
+          <div class="select-wrap">
+            <select class="select" id="spa_calendarType" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Individual calendars per provider">Individual calendars per provider</option>
+              <option value="One shared calendar">One shared calendar</option>
+              <option value="Just me">Just me — single calendar</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="spa_cancellation">Cancellation policy</label>
+          <textarea class="textarea" id="spa_cancellation" data-required="true" placeholder="e.g. 48 hours notice required. No-shows forfeit deposit."></textarea>
+        </div>
+      </div>
+
+      <!-- ─── BEAUTY / WELLNESS ─── -->
+      <div class="niche-section" id="niche-beauty" style="display:none">
+        <div class="field">
+          <label class="field-label" for="bty_services">Services menu with duration and price</label>
+          <textarea class="textarea" id="bty_services" data-required="true" placeholder="e.g. Classic full set — 90 min — $120 / Fill — 45 min — $65..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="bty_teamType">Solo or team?</label>
+          <div class="select-wrap">
+            <select class="select" id="bty_teamType" data-required="true" onchange="toggleReveal('bty_providers', this.value === 'Team')">
+              <option value="" disabled selected>Select one</option>
+              <option value="Just me">Just me</option>
+              <option value="Team">I have a team</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="reveal-target" id="bty_providers">
+          <div class="field">
+            <label class="field-label" for="bty_providerNames">Provider names and specialties</label>
+            <textarea class="textarea" id="bty_providerNames" placeholder="e.g. Jasmine — lash extensions / Priya — brow lamination and waxing..."></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="bty_depositReq">Deposit required to book?</label>
+          <div class="select-wrap">
+            <select class="select" id="bty_depositReq" data-required="true" onchange="toggleReveal('bty_depositAmt', this.value === 'Yes')">
+              <option value="" disabled selected>Select one</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="reveal-target" id="bty_depositAmt">
+            <div class="prefix-wrap" style="margin-top:10px;">
+              <span class="prefix">$</span>
+              <input class="input" type="number" id="bty_depositAmtVal" placeholder="50" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="bty_walkins">Walk-ins or appointment only?</label>
+          <div class="select-wrap">
+            <select class="select" id="bty_walkins" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Appointment only">Appointment only</option>
+              <option value="Walk-ins welcome">Walk-ins welcome</option>
+              <option value="Both">Both — appointments preferred</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="bty_cancellation">Cancellation policy <span class="field-hint">(hours notice and any fee)</span></label>
+          <textarea class="textarea" id="bty_cancellation" data-required="true" placeholder="e.g. 24 hours notice required. No-shows charged 50% of service."></textarea>
+        </div>
+      </div>
+
+      <!-- ─── FITNESS / MOVEMENT ─── -->
+      <div class="niche-section" id="niche-fitness" style="display:none">
+        <div class="field">
+          <label class="field-label">Service types you offer <span class="field-hint">(select all that apply)</span></label>
+          <div class="check-group" id="fit_serviceTypes">
+            <label class="check-item"><input type="checkbox" value="1-on-1 sessions"><span class="check-label">1-on-1 personal training or coaching</span></label>
+            <label class="check-item"><input type="checkbox" value="Group classes"><span class="check-label">Group classes</span></label>
+            <label class="check-item"><input type="checkbox" value="Hybrid (in-person and online)"><span class="check-label">Hybrid — in-person and online</span></label>
+            <label class="check-item"><input type="checkbox" value="Online only"><span class="check-label">Online only</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="fit_memberships">Membership tiers with pricing <span class="optional">optional</span></label>
+          <textarea class="textarea" id="fit_memberships" placeholder="e.g. Unlimited classes — $149/mo / 8 classes — $99/mo..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="fit_trial">Trial offer currently running <span class="optional">optional</span></label>
+          <input class="input" type="text" id="fit_trial" placeholder="e.g. First class free / 7-day trial for $27">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="fit_dropin">Drop-in rate <span class="optional">optional</span></label>
+          <div class="prefix-wrap">
+            <span class="prefix">$</span>
+            <input class="input" type="number" id="fit_dropin" placeholder="25" min="0">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="fit_waiver">Do you use a liability waiver?</label>
+          <div class="select-wrap">
+            <select class="select" id="fit_waiver" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Yes">Yes — we'll upload it</option>
+              <option value="No">No, not yet</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="fit_leadMagnet">Preferred lead magnet to offer prospects</label>
+          <div class="select-wrap">
+            <select class="select" id="fit_leadMagnet" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Free class">Free class</option>
+              <option value="Free consultation">Free consultation or assessment</option>
+              <option value="Free trial week">Free trial week</option>
+              <option value="Other">Something else (add in final step)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── LEGAL / PROFESSIONAL SERVICES ─── -->
+      <div class="niche-section" id="niche-legal" style="display:none">
+        <div class="field">
+          <label class="field-label" for="leg_practiceAreas">Practice area(s)</label>
+          <textarea class="textarea" id="leg_practiceAreas" data-required="true" placeholder="e.g. Family law, criminal defense, estate planning..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="leg_jurisdictions">Jurisdiction(s) served</label>
+          <input class="input" type="text" id="leg_jurisdictions" data-required="true" placeholder="e.g. Bexar County, Texas statewide, federal courts">
+        </div>
+
+        <div class="field">
+          <label class="field-label">Consultation format offered <span class="field-hint">(select all that apply)</span></label>
+          <div class="check-group" id="leg_consultFormat">
+            <label class="check-item"><input type="checkbox" value="Phone"><span class="check-label">Phone</span></label>
+            <label class="check-item"><input type="checkbox" value="In-person"><span class="check-label">In-person</span></label>
+            <label class="check-item"><input type="checkbox" value="Video"><span class="check-label">Video call</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="leg_consultFee">Consultation — free or paid? If paid, how much?</label>
+          <input class="input" type="text" id="leg_consultFee" data-required="true" placeholder="e.g. Free / $150 for 30 min / Free for injury, $200 for business">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="leg_goodFit">Client or case types that are always a good fit</label>
+          <textarea class="textarea" id="leg_goodFit" data-required="true" placeholder="e.g. Uncontested divorces, first-time offenses, business contracts under $500k..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="leg_screenOut">Client or case types to screen out immediately</label>
+          <textarea class="textarea" id="leg_screenOut" data-required="true" placeholder="e.g. Class actions, federal criminal, anything outside Texas..."></textarea>
+        </div>
+      </div>
+
+      <!-- ─── REAL ESTATE ─── -->
+      <div class="niche-section" id="niche-realestate" style="display:none">
+        <div class="field">
+          <label class="field-label" for="re_teamType">Solo agent or team?</label>
+          <div class="select-wrap">
+            <select class="select" id="re_teamType" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Solo agent">Solo agent</option>
+              <option value="Small team (2-5)">Small team (2 to 5)</option>
+              <option value="Large team (6+)">Large team (6+)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="re_transactionSide">Primary transaction side</label>
+          <div class="select-wrap">
+            <select class="select" id="re_transactionSide" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Buyers">Buyers</option>
+              <option value="Sellers">Sellers</option>
+              <option value="Both equally">Both equally</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="re_markets">Markets served (city or zip code focus)</label>
+          <input class="input" type="text" id="re_markets" data-required="true" placeholder="e.g. North SA, Stone Oak, Alamo Heights, 78209, 78232">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="re_priceRange">Price range focus <span class="optional">optional</span></label>
+          <input class="input" type="text" id="re_priceRange" placeholder="e.g. $200k to $500k / luxury $800k+">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="re_leadMagnet">Preferred lead magnet for prospects</label>
+          <div class="select-wrap">
+            <select class="select" id="re_leadMagnet" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Home value report">Home value report</option>
+              <option value="Buyer's guide">Buyer's guide</option>
+              <option value="Market update">Market update</option>
+              <option value="Free consultation">Free consultation</option>
+              <option value="Other">Something else (note in final step)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="re_investors">Do you work with investors?</label>
+          <div class="select-wrap">
+            <select class="select" id="re_investors" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Yes">Yes — actively</option>
+              <option value="Occasionally">Occasionally</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="re_leadSources">Lead sources currently working for you <span class="optional">optional</span></label>
+          <textarea class="textarea" id="re_leadSources" placeholder="e.g. Zillow, referrals, open houses, Facebook ads..."></textarea>
+        </div>
+      </div>
+
+      <!-- ─── HOME / TRADE SERVICES ─── -->
+      <div class="niche-section" id="niche-trade" style="display:none">
+        <div class="field">
+          <label class="field-label" for="trd_serviceTypes">Service type(s) you offer</label>
+          <textarea class="textarea" id="trd_serviceTypes" data-required="true" placeholder="e.g. HVAC installation and repair, plumbing, roofing..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="trd_serviceArea">Service area</label>
+          <input class="input" type="text" id="trd_serviceArea" data-required="true" placeholder="e.g. Within 30 miles of San Antonio / 78201, 78209, 78230">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="trd_clientType">Residential, commercial, or both?</label>
+          <div class="select-wrap">
+            <select class="select" id="trd_clientType" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Residential only">Residential only</option>
+              <option value="Commercial only">Commercial only</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="trd_emergency">Emergency or same-day availability?</label>
+          <div class="select-wrap">
+            <select class="select" id="trd_emergency" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Yes — 24/7">Yes — 24/7</option>
+              <option value="Yes — business hours">Yes — during business hours</option>
+              <option value="Sometimes">Sometimes / case by case</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="trd_estimate">Estimate process</label>
+          <div class="select-wrap">
+            <select class="select" id="trd_estimate" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="On-site required">On-site visit required</option>
+              <option value="Phone quote ok">Phone or video quote is fine</option>
+              <option value="Both">Either — depends on job</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="trd_license">State license number and insurance carrier <span class="optional">optional</span></label>
+          <input class="input" type="text" id="trd_license" placeholder="e.g. TX HVAC #M-12345, insured by Travelers">
+        </div>
+      </div>
+
+      <!-- ─── TATTOO STUDIO ─── -->
+      <div class="niche-section" id="niche-tattoo" style="display:none">
+        <div class="field">
+          <label class="field-label" for="tat_artists">Artist names and specialties <span class="field-hint">(one per line)</span></label>
+          <textarea class="textarea" id="tat_artists" data-required="true" placeholder="e.g. Shanda — fine line and botanical / Marco — realism and portraits..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Styles offered <span class="field-hint">(select all that apply)</span></label>
+          <div class="check-group grid-2" id="tat_styles">
+            <label class="check-item"><input type="checkbox" value="Fine line"><span class="check-label">Fine line</span></label>
+            <label class="check-item"><input type="checkbox" value="Realism"><span class="check-label">Realism</span></label>
+            <label class="check-item"><input type="checkbox" value="Traditional"><span class="check-label">Traditional</span></label>
+            <label class="check-item"><input type="checkbox" value="Color"><span class="check-label">Color</span></label>
+            <label class="check-item"><input type="checkbox" value="Black and grey"><span class="check-label">Black and grey</span></label>
+            <label class="check-item"><input type="checkbox" value="Neo traditional"><span class="check-label">Neo traditional</span></label>
+            <label class="check-item"><input type="checkbox" value="Watercolor"><span class="check-label">Watercolor</span></label>
+            <label class="check-item"><input type="checkbox" value="Geometric"><span class="check-label">Geometric</span></label>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="tat_shopMin">Shop minimum</label>
+            <div class="prefix-wrap">
+              <span class="prefix">$</span>
+              <input class="input" type="number" id="tat_shopMin" data-required="true" placeholder="100" min="0">
+            </div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="tat_deposit">Deposit to book</label>
+            <div class="prefix-wrap">
+              <span class="prefix">$</span>
+              <input class="input" type="number" id="tat_deposit" data-required="true" placeholder="100" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="tat_depositType">Is the deposit refundable?</label>
+          <div class="select-wrap">
+            <select class="select" id="tat_depositType" data-required="true">
+              <option value="" disabled selected>Select one</option>
+              <option value="Non-refundable">Non-refundable</option>
+              <option value="Refundable with enough notice">Refundable with enough notice</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="tat_cancellation">Cancellation policy</label>
+          <textarea class="textarea" id="tat_cancellation" data-required="true" placeholder="e.g. 48 hours notice required. Deposit forfeited on no-show."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="tat_refPhotos">Reference photos — when do clients need to bring them?</label>
+          <input class="input" type="text" id="tat_refPhotos" data-required="true" placeholder="e.g. Bring 3 reference photos to your consultation">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="tat_phoneShared">Is your phone number shared across multiple locations?</label>
+          <div class="select-wrap">
+            <select class="select" id="tat_phoneShared" data-required="true" onchange="toggleReveal('tat_locationCount', this.value === 'Yes')">
+              <option value="" disabled selected>Select one</option>
+              <option value="No — one location">No — one location only</option>
+              <option value="Yes">Yes — multiple locations use this number</option>
+            </select>
+          </div>
+          <div class="reveal-target" id="tat_locationCount">
+            <input class="input" type="number" id="tat_locationCountVal" placeholder="How many locations?" min="2" style="margin-top:10px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── OTHER ─── -->
+      <div class="niche-section" id="niche-other" style="display:none">
+        <div class="field">
+          <label class="field-label" for="oth_services">Describe your services in detail <span class="field-hint">(include pricing if possible)</span></label>
+          <textarea class="textarea" id="oth_services" data-required="true" style="min-height:120px;" placeholder="List everything you offer — the more detail here, the more accurately your system will represent you..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="oth_booking">Walk us through how a client books with you right now</label>
+          <textarea class="textarea" id="oth_booking" data-required="true" placeholder="e.g. They find me on Instagram, DM me, I check my calendar and send a Venmo link..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="oth_details">Anything specific the AI should know about how your business runs <span class="optional">optional</span></label>
+          <textarea class="textarea" id="oth_details" placeholder="Policies, client preferences, anything Ora needs to know before building..."></textarea>
+        </div>
+      </div>
+
+      <div id="error4" class="error-msg">Please complete the required fields above before continuing.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(4)">← Back</button>
+        <button class="btn-next" onclick="nextStep(4)">Next →</button>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- STEP 5: Tier-Specific + Contact                    -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <div class="step-panel" id="step5">
+      <div class="step-heading">Last step.</div>
+      <div class="step-sub">A few final questions based on your plan, then you're done.</div>
+
+      <!-- MOMENTUM FIELDS (shown for Momentum, Ascent, Sovereign) -->
+      <div id="tier-momentum" style="display:none">
+        <div class="tier-section-label">Momentum</div>
+
+        <div class="field">
+          <label class="field-label" for="mom_missedCall">What happens right now when you miss a call? <span class="optional">optional</span></label>
+          <textarea class="textarea" id="mom_missedCall" placeholder="e.g. It rings through, nothing. Sometimes I call back, sometimes not."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="mom_noShow">Estimated no-show or cancellation rate <span class="optional">optional</span></label>
+          <input class="input" type="text" id="mom_noShow" placeholder="e.g. Maybe 10%, mostly last-minute texts">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="mom_automations">Any automations already running in your business <span class="optional">optional</span></label>
+          <textarea class="textarea" id="mom_automations" placeholder="e.g. Appointment reminders from Jane App / nothing yet"></textarea>
+        </div>
+
+        <hr class="field-section-rule">
+      </div>
+
+      <!-- ASCENT FIELDS (shown for Ascent, Sovereign) -->
+      <div id="tier-ascent" style="display:none">
+        <div class="tier-section-label">Ascent</div>
+
+        <div class="field">
+          <label class="field-label" for="asc_newClientGoal">Monthly new client goal</label>
+          <input class="input" type="number" id="asc_newClientGoal" placeholder="e.g. 15" min="0">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="asc_revenueLeaks">In your own words — where is your biggest revenue leak right now?</label>
+          <textarea class="textarea" id="asc_revenueLeaks" placeholder="Be honest. This feeds the dashboard baseline and your first monthly insight report."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="asc_contentPref">AI-generated content: topics you want, topics to avoid <span class="optional">optional</span></label>
+          <textarea class="textarea" id="asc_contentPref" placeholder="e.g. Focus on before/after results and specials. Never mention competitor names."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="asc_reviewPlatform">Preferred review platform</label>
+          <div class="select-wrap">
+            <select class="select" id="asc_reviewPlatform">
+              <option value="" disabled selected>Select one</option>
+              <option value="Google">Google</option>
+              <option value="Yelp">Yelp</option>
+              <option value="Healthgrades">Healthgrades</option>
+              <option value="RealSelf">RealSelf</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Other">Other (add in notes)</option>
+            </select>
+          </div>
+        </div>
+
+        <hr class="field-section-rule">
+      </div>
+
+      <!-- SOVEREIGN FIELDS -->
+      <div id="tier-sovereign" style="display:none">
+        <div class="tier-section-label">Sovereign</div>
+
+        <div class="field">
+          <label class="field-label" for="sov_revenueTarget">90-day revenue target</label>
+          <div class="prefix-wrap">
+            <span class="prefix">$</span>
+            <input class="input" type="number" id="sov_revenueTarget" placeholder="0" min="0">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="sov_team">Who else on your team is involved in day-to-day operations?</label>
+          <textarea class="textarea" id="sov_team" placeholder="Names, roles, and what they handle..."></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="sov_reporting">Reporting preference</label>
+          <div class="select-wrap">
+            <select class="select" id="sov_reporting">
+              <option value="" disabled selected>Select one</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="sov_successDef">What does success look like at 90 days — in your own words?</label>
+          <textarea class="textarea" id="sov_successDef" placeholder="Paint the picture. This becomes your 90-day benchmark."></textarea>
+        </div>
+
+        <hr class="field-section-rule">
+      </div>
+
+      <!-- CONTACT (always shown) -->
+      <div class="field-row">
+        <div class="field">
+          <label class="field-label" for="firstName">Your first name</label>
+          <input class="input" type="text" id="firstName" placeholder="First name" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label class="field-label" for="lastName">Last name <span class="optional">optional</span></label>
+          <input class="input" type="text" id="lastName" placeholder="Last name" autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="email">Your email address</label>
+        <input class="input" type="email" id="email" placeholder="you@yourpractice.com" autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="cellPhone">Your cell number <span class="field-hint">(for SMS testing when your system goes live)</span></label>
+        <input class="input" type="tel" id="cellPhone" placeholder="(210) 555-0000" autocomplete="tel">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="anythingElse">Anything else you want us to know before we start? <span class="optional">optional</span></label>
+        <textarea class="textarea" id="anythingElse" placeholder="Policies, preferences, quirks, context that matters..."></textarea>
+      </div>
+
+      <div id="error5" class="error-msg">Please enter your first name and a valid email address.</div>
+
+      <div class="nav-row">
+        <button class="btn-back" onclick="prevStep(5)">← Back</button>
+        <button class="btn-next" onclick="submitForm()" id="submitBtn">Submit my intake →</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-panel" id="successPanel">
+      <span class="success-glyph">✦</span>
+      <div class="success-title">Got it.<br><em>Build starts now.</em></div>
+      <p class="success-body">
+        Your system will be live within 7 days. You don't need to do anything.
+        When your first lead comes in, I'll message you directly.
+      </p>
+      <div class="success-note">
+        📬 Watch for a message from hello@withora.co
+      </div>
+    </div>
+
+  </div><!-- end card -->
+
+  <!-- FOOTER -->
+  <div class="footer" id="footerEl">
+    <a href="/" class="footer-mark" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <svg width="14" height="17" viewBox="0 0 90 108" fill="none">
+        <path d="M45 102C43 88 47 74 44 62C42 50 46 38 44 28C42 18 46 10 45 4"
+          stroke="rgba(30,26,18,0.3)" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <path d="M44 72C34 70 22 64 16 54C10 44 16 34 26 38C34 42 44 58 44 68Z"
+          fill="rgba(58,107,62,0.4)"/>
+        <circle cx="45" cy="4" r="14" fill="rgba(192,72,32,0.35)"/>
+      </svg>
+      <span style="font-family:'Lora',serif;font-style:italic;font-size:12px;color:rgba(30,26,18,0.3);">withora.co</span>
+    </a>
+    <br>
+    <a href="/" class="footer-text">AI systems for local businesses · Built by Ora</a>
+  </div>
+
+</div><!-- end wrapper -->
+
+<script>
+// ── CONFIGURATION ──────────────────────────────────────────
+// Replace with your Make.com webhook URL for the onboarding scenario
+const MAKE_WEBHOOK_URL = '36q3xu67d7o6odw8v3jww2050yg2x87i@hook.us2.make.com';
+// ─────────────────────────────────────────────────────────
+
+// ── TIER + NICHE STATE ─────────────────────────────────────
+let currentStep = 1;
+const totalSteps = 5;
+let selectedTier = '';
+let selectedNiche = '';
+
+// ── TIER DETECTION FROM STRIPE URL PARAM ──────────────────
+// Each Stripe product link redirects here with ?tier=signal|momentum|ascent|sovereign
+(function detectTierFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const urlTier = params.get('tier');
+  if (urlTier) {
+    const tierLabels = { signal: 'Signal', momentum: 'Momentum', ascent: 'Ascent', sovereign: 'Sovereign' };
+    selectedTier = tierLabels[urlTier.toLowerCase()] || '';
+    if (selectedTier) {
+      document.getElementById('tierBadge').style.display = 'inline-flex';
+      document.getElementById('tierBadgeLabel').textContent = selectedTier + ' plan';
+      document.getElementById('tierSelectWrap').style.display = 'none';
+    }
+  }
+})();
+
+// ── STEP LABELS ───────────────────────────────────────────
+const stepLabels = [
+  'Step 1 of 5 — Your business',
+  'Step 2 of 5 — Contact and presence',
+  'Step 3 of 5 — How you operate',
+  'Step 4 of 5 — Your details',
+  'Step 5 of 5 — Final details'
+];
+
+function updateProgress(step) {
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('dot' + i);
+    if (i < step) { dot.className = 'step-dot done'; dot.innerHTML = '✓'; }
+    else if (i === step) { dot.className = 'step-dot active'; dot.innerHTML = i; }
+    else { dot.className = 'step-dot'; dot.innerHTML = i; }
+    if (i < totalSteps) {
+      document.getElementById('line' + i).className = i < step ? 'step-line done' : 'step-line';
+    }
+  }
+  document.getElementById('progressLabel').textContent = stepLabels[step - 1];
+}
+
+// ── NICHE SECTION MANAGEMENT ──────────────────────────────
+const nicheMap = {
+  'Medical / Dental Practice': 'medical',
+  'Med Spa / Aesthetic Clinic': 'medspa',
+  'Beauty / Wellness': 'beauty',
+  'Fitness / Movement': 'fitness',
+  'Legal / Professional Services': 'legal',
+  'Real Estate': 'realestate',
+  'Home / Trade Services': 'trade',
+  'Tattoo Studio': 'tattoo',
+  'Other': 'other'
+};
+
+const nicheHeadings = {
+  'Medical / Dental Practice': ['Your practice details.', 'A few things we need from you that we can\'t look up on your website.'],
+  'Med Spa / Aesthetic Clinic': ['Your spa details.', 'Tell us how your bookings and pricing actually work.'],
+  'Beauty / Wellness': ['Your studio details.', 'Tell us how your bookings and pricing work.'],
+  'Fitness / Movement': ['Your fitness business.', 'The details that shape how your AI handles leads and inquiries.'],
+  'Legal / Professional Services': ['Your practice details.', 'This is how your intake AI knows who to accept and who to route elsewhere.'],
+  'Real Estate': ['Your real estate business.', 'Tell us how you work and what your best leads look like.'],
+  'Home / Trade Services': ['Your trade business.', 'Tell us your service area and how jobs come in.'],
+  'Tattoo Studio': ['Your studio details.', 'Everything your AI needs to answer inquiries exactly right.'],
+  'Other': ['Tell us more.', 'Help us understand your business so we build this exactly right.']
+};
+
+function showNicheSection(niche) {
+  document.querySelectorAll('.niche-section').forEach(s => s.style.display = 'none');
+  const sectionId = nicheMap[niche];
+  if (sectionId) {
+    const section = document.getElementById('niche-' + sectionId);
+    if (section) section.style.display = 'block';
+  }
+  const headings = nicheHeadings[niche];
+  if (headings) {
+    document.getElementById('step4Heading').textContent = headings[0];
+    document.getElementById('step4Sub').textContent = headings[1];
+  }
+  stepLabels[3] = 'Step 4 of 5 — ' + (niche !== 'Other' ? niche.split('/')[0].trim() + ' details' : 'Business details');
+}
+
+document.getElementById('bizType').addEventListener('change', function() {
+  selectedNiche = this.value;
+  showNicheSection(selectedNiche);
+});
+
+// ── TIER FIELDS MANAGEMENT ────────────────────────────────
+function showTierFields(tier) {
+  const tiers = ['Signal', 'Momentum', 'Ascent', 'Sovereign'];
+  const tierIndex = tiers.indexOf(tier);
+  document.getElementById('tier-momentum').style.display = tierIndex >= 1 ? 'block' : 'none';
+  document.getElementById('tier-ascent').style.display = tierIndex >= 2 ? 'block' : 'none';
+  document.getElementById('tier-sovereign').style.display = tierIndex >= 3 ? 'block' : 'none';
+}
+
+// ── REVEAL TOGGLES ────────────────────────────────────────
+function toggleReveal(id, show) {
+  const el = document.getElementById(id);
+  if (el) el.className = show ? 'reveal-target visible' : 'reveal-target';
+}
+
+// ── CHECKBOX VISUAL TOGGLE ────────────────────────────────
+document.addEventListener('change', function(e) {
+  if (e.target && e.target.type === 'checkbox') {
+    const item = e.target.closest('.check-item');
+    if (item) item.classList.toggle('checked', e.target.checked);
+  }
+});
+
+// ── PHONE FORMATTING ──────────────────────────────────────
+function formatPhoneInput(input) {
+  input.addEventListener('input', function() {
+    let digits = this.value.replace(/\D/g, '').slice(0, 10);
+    let formatted = '';
+    if (digits.length > 0) formatted = '(' + digits.slice(0, 3);
+    if (digits.length >= 4) formatted += ') ' + digits.slice(3, 6);
+    if (digits.length >= 7) formatted += '-' + digits.slice(6, 10);
+    this.value = formatted;
+  });
+}
+function toE164(raw) {
+  const digits = raw.replace(/\D/g, '');
+  if (digits.length === 10) return '+1' + digits;
+  if (digits.length === 11 && digits[0] === '1') return '+' + digits;
+  return digits.length > 0 ? '+' + digits : '';
+}
+formatPhoneInput(document.getElementById('bizPhone'));
+formatPhoneInput(document.getElementById('cellPhone'));
+
+// ── HELPERS ───────────────────────────────────────────────
+function showError(id, show) {
+  document.getElementById(id).className = show ? 'error-msg visible' : 'error-msg';
+}
+function getChecked(containerId) {
+  const vals = [];
+  const container = document.getElementById(containerId);
+  if (container) container.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => vals.push(cb.value));
+  return vals.join(', ');
+}
+function val(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+// ── VALIDATION ────────────────────────────────────────────
+function validateStep(step) {
+  if (step === 1) {
+    const name = val('bizName');
+    const niche = val('bizType');
+    const city = val('bizCity');
+    const tier = selectedTier || val('tierSelect');
+    if (!name || !niche || !city || !tier) { showError('error1', true); return false; }
+    selectedTier = tier;
+    showTierFields(selectedTier);
+    showError('error1', false);
+    return true;
+  }
+  if (step === 2) {
+    if (!val('bizPhone') || !val('bizAddress') || !val('bizZip')) { showError('error2', true); return false; }
+    showError('error2', false);
+    return true;
+  }
+  if (step === 3) {
+    const primary = val('primaryService');
+    const avgVal = val('avgValue');
+    const days = getChecked('busiestDays');
+    const booking = getChecked('bookingMethod');
+    const complaint = val('clientComplaint');
+    const unique = val('uniqueValue');
+    if (!primary || !avgVal || !days || !booking || !complaint || !unique) { showError('error3', true); return false; }
+    showError('error3', false);
+    return true;
+  }
+  if (step === 4) {
+    let valid = true;
+    // Check visible niche section required fields
+    const sectionId = nicheMap[selectedNiche];
+    if (sectionId) {
+      const section = document.getElementById('niche-' + sectionId);
+      if (section) {
+        section.querySelectorAll('[data-required="true"]').forEach(el => {
+          if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+          else el.classList.remove('error');
+        });
+        // HIPAA checkbox
+        const hipaa = document.getElementById('med_hipaaAck');
+        if (hipaa && !hipaa.checked) {
+          document.getElementById('chk-hipaa').style.borderColor = 'var(--amber)';
+          valid = false;
+        }
+      }
+    }
+    showError('error4', !valid);
+    return valid;
+  }
+  if (step === 5) {
+    const fname = val('firstName');
+    const email = val('email');
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!fname || !emailValid) {
+      showError('error5', true);
+      if (!emailValid && email) document.getElementById('email').classList.add('error');
+      return false;
+    }
+    document.getElementById('email').classList.remove('error');
+    showError('error5', false);
+    return true;
+  }
+  return true;
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+function nextStep(from) {
+  if (!validateStep(from)) return;
+  document.getElementById('step' + from).classList.remove('active');
+  currentStep = from + 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  // Ensure tier fields are visible on step 5
+  if (currentStep === 5) showTierFields(selectedTier);
+  updateProgress(currentStep);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function prevStep(from) {
+  document.getElementById('step' + from).classList.remove('active');
+  currentStep = from - 1;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateProgress(currentStep);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── DATA COLLECTION ───────────────────────────────────────
+function collectNicheData() {
+  const niche = selectedNiche;
+  const d = {};
+
+  if (niche === 'Medical / Dental Practice') {
+    d.specialty = val('med_specialty');
+    d.acceptingPatients = val('med_newPatients');
+    d.insurance = val('med_insurance');
+    d.ehr = val('med_ehr');
+    d.onlineAppointmentTypes = val('med_onlineAppts');
+    d.phoneOnlyAppointmentTypes = val('med_phoneOnly');
+    d.hipaaAcknowledged = document.getElementById('med_hipaaAck')?.checked ? 'Yes' : 'No';
+  } else if (niche === 'Med Spa / Aesthetic Clinic') {
+    d.servicesMenu = val('spa_services');
+    d.servicesRequiringConsult = val('spa_consultRequired');
+    d.servicesDirectBook = val('spa_directBook');
+    d.memberships = val('spa_memberships');
+    d.depositRequired = val('spa_depositReq');
+    d.depositAmount = val('spa_depositAmtVal') ? '$' + val('spa_depositAmtVal') : '';
+    d.providers = val('spa_providers');
+    d.calendarType = val('spa_calendarType');
+    d.cancellationPolicy = val('spa_cancellation');
+  } else if (niche === 'Beauty / Wellness') {
+    d.servicesMenu = val('bty_services');
+    d.teamType = val('bty_teamType');
+    d.providerNames = val('bty_providerNames');
+    d.depositRequired = val('bty_depositReq');
+    d.depositAmount = val('bty_depositAmtVal') ? '$' + val('bty_depositAmtVal') : '';
+    d.walkins = val('bty_walkins');
+    d.cancellationPolicy = val('bty_cancellation');
+  } else if (niche === 'Fitness / Movement') {
+    d.serviceTypes = getChecked('fit_serviceTypes');
+    d.membershipTiers = val('fit_memberships');
+    d.trialOffer = val('fit_trial');
+    d.dropInRate = val('fit_dropin') ? '$' + val('fit_dropin') : '';
+    d.liabilityWaiver = val('fit_waiver');
+    d.preferredLeadMagnet = val('fit_leadMagnet');
+  } else if (niche === 'Legal / Professional Services') {
+    d.practiceAreas = val('leg_practiceAreas');
+    d.jurisdictions = val('leg_jurisdictions');
+    d.consultationFormats = getChecked('leg_consultFormat');
+    d.consultationFee = val('leg_consultFee');
+    d.goodFitClients = val('leg_goodFit');
+    d.screenOutClients = val('leg_screenOut');
+  } else if (niche === 'Real Estate') {
+    d.teamType = val('re_teamType');
+    d.transactionSide = val('re_transactionSide');
+    d.marketsServed = val('re_markets');
+    d.priceRange = val('re_priceRange');
+    d.preferredLeadMagnet = val('re_leadMagnet');
+    d.worksWithInvestors = val('re_investors');
+    d.leadSources = val('re_leadSources');
+  } else if (niche === 'Home / Trade Services') {
+    d.serviceTypes = val('trd_serviceTypes');
+    d.serviceArea = val('trd_serviceArea');
+    d.clientType = val('trd_clientType');
+    d.emergencyAvailability = val('trd_emergency');
+    d.estimateProcess = val('trd_estimate');
+    d.licenseAndInsurance = val('trd_license');
+  } else if (niche === 'Tattoo Studio') {
+    d.artists = val('tat_artists');
+    d.stylesOffered = getChecked('tat_styles');
+    d.shopMinimum = val('tat_shopMin') ? '$' + val('tat_shopMin') : '';
+    d.depositAmount = val('tat_deposit') ? '$' + val('tat_deposit') : '';
+    d.depositRefundable = val('tat_depositType');
+    d.cancellationPolicy = val('tat_cancellation');
+    d.referencePhotos = val('tat_refPhotos');
+    d.phoneShared = val('tat_phoneShared');
+    d.locationCount = val('tat_locationCountVal');
+  } else if (niche === 'Other') {
+    d.servicesDescription = val('oth_services');
+    d.bookingProcess = val('oth_booking');
+    d.additionalDetails = val('oth_details');
+  }
+
+  return d;
+}
+
+function collectTierData() {
+  const d = {};
+  const tier = selectedTier;
+  const tiers = ['Momentum', 'Ascent', 'Sovereign'];
+  const tierIndex = tiers.indexOf(tier);
+  if (tierIndex >= 0) {
+    d.missedCallProcess = val('mom_missedCall');
+    d.noShowRate = val('mom_noShow');
+    d.existingAutomations = val('mom_automations');
+  }
+  if (tierIndex >= 1) {
+    d.monthlyNewClientGoal = val('asc_newClientGoal');
+    d.revenueLeaks = val('asc_revenueLeaks');
+    d.contentPreferences = val('asc_contentPref');
+    d.reviewPlatform = val('asc_reviewPlatform');
+  }
+  if (tierIndex >= 2) {
+    d.ninetyDayRevenueTarget = val('sov_revenueTarget') ? '$' + val('sov_revenueTarget') : '';
+    d.teamStructure = val('sov_team');
+    d.reportingPreference = val('sov_reporting');
+    d.successDefinition = val('sov_successDef');
+  }
+  return d;
+}
+
+function collectData() {
+  return {
+    // Step 1
+    businessName: val('bizName'),
+    niche: selectedNiche,
+    tier: selectedTier,
+    city: val('bizCity'),
+    state: val('bizState'),
+
+    // Step 2
+    businessPhone: toE164(document.getElementById('bizPhone').value),
+    streetAddress: val('bizAddress'),
+    zipCode: val('bizZip'),
+    numberOfLocations: val('bizLocations') || '1',
+    website: val('website'),
+    googleBusinessProfile: val('googleProfile'),
+    instagram: val('instagram'),
+    facebook: val('facebook'),
+
+    // Step 3
+    primaryService: val('primaryService'),
+    avgTransactionValue: val('avgValue') ? '$' + val('avgValue') : '',
+    busiestDays: getChecked('busiestDays'),
+    currentBookingMethod: getChecked('bookingMethod'),
+    currentCRM: val('currentCRM'),
+    biggestClientComplaint: val('clientComplaint'),
+    uniqueStrength: val('uniqueValue'),
+
+    // Step 4 — niche specific
+    nicheData: collectNicheData(),
+
+    // Step 5 — tier specific
+    tierData: collectTierData(),
+
+    // Step 5 — contact
+    firstName: val('firstName'),
+    lastName: val('lastName'),
+    email: val('email'),
+    cellPhone: toE164(document.getElementById('cellPhone').value),
+    anythingElse: val('anythingElse'),
+
+    // Meta
+    source: 'Ora Client Onboarding Form',
+    tags: ['new-client', 'intake-complete', 'tier:' + selectedTier.toLowerCase()],
+    submittedAt: new Date().toISOString()
+  };
+}
+
+// ── SUBMIT ────────────────────────────────────────────────
+function submitForm() {
+  if (!validateStep(5)) return;
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  const data = collectData();
+
+  fetch(MAKE_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(err => console.warn('Webhook error:', err));
+
+  setTimeout(() => {
+    for (let i = 1; i <= totalSteps; i++) {
+      const p = document.getElementById('step' + i);
+      if (p) p.classList.remove('active');
+    }
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('successPanel').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 900);
+}
+
+// ── KEYBOARD NAVIGATION ───────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'SELECT') {
+    if (currentStep < totalSteps) nextStep(currentStep);
+    else if (currentStep === totalSteps) submitForm();
+  }
+});
+
+// ── TIER SELECT SYNC (when no URL param) ─────────────────
+document.getElementById('tierSelect').addEventListener('change', function() {
+  selectedTier = this.value;
+});
+</script>
+</body>
+</html>
