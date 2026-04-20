@@ -584,8 +584,8 @@ h1 em {
     </a>
 
     <div class="eyebrow">Free audit</div>
-    <h1>Tell us about<br>your <em>practice.</em></h1>
-    <p class="subtitle">Takes about 10 minutes. Your numbers land in your inbox within 24 hours. No call, no pitch.</p>
+    <h1>Your numbers,<br><em>in 24 hours.</em></h1>
+    <p class="subtitle">Practices operating at your level don't leave growth to chance. Ten minutes and we'll show you exactly what's slipping — and what it's costing you. No call, no pitch.</p>
   </div>
 
   <!-- PROGRESS -->
@@ -706,7 +706,7 @@ h1 em {
     <!-- STEP 3: The numbers -->
     <div class="step-panel" id="step3">
       <div class="step-heading">The numbers.</div>
-      <div class="step-sub">Rough estimates are fine. We use this to calculate your opportunity.</div>
+      <div class="step-sub">Rough estimates are fine. For most practices, the audit reveals enough recoverable revenue to pay for Ora in the first week. These numbers make that math real.</div>
 
       <div class="field">
         <label class="field-label" for="serviceValue">Average value of one appointment or service</label>
@@ -769,8 +769,8 @@ h1 em {
 
     <!-- STEP 4: The gap -->
     <div class="step-panel" id="step4">
-      <div class="step-heading">Where it hurts.</div>
-      <div class="step-sub">Select everything that feels true right now. The more honest you are, the more useful your audit will be.</div>
+      <div class="step-heading">Where the gap lives.</div>
+      <div class="step-sub">The most successful practices we work with identified these exact same gaps before they solved them. Be honest here — the more specific you are, the more useful your audit will be.</div>
 
       <div class="field">
         <label class="field-label">Biggest growth challenges right now</label>
@@ -804,6 +804,11 @@ h1 em {
             <span class="check-label">Hard to find online compared to competitors</span>
           </label>
         </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="pastAttempts">What's the last thing you tried to fix this — and what happened? <span class="optional">optional</span></label>
+        <textarea class="textarea" id="pastAttempts" placeholder="e.g. Tried a booking app but clients didn't use it. Hired a receptionist but couldn't keep them. Nothing ever stuck."></textarea>
       </div>
 
       <div class="field">
@@ -1061,6 +1066,7 @@ function collectData() {
     followUpSpeed: document.getElementById('followUpSpeed').value,
     monthlyRevenue: document.getElementById('monthlyRevenue').value,
     challenges: challenges.join(', '),
+    pastAttempts: document.getElementById('pastAttempts').value.trim(),
     goodMonth: document.getElementById('goodMonth').value.trim(),
     anythingElse: document.getElementById('anythingElse').value.trim(),
     source: 'Ora Free Audit Form',
