@@ -69,7 +69,7 @@
           <div style="width:34px;height:34px;background:${C.cream};display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;color:${C.terra};font-size:17px;">◎</div>
           <div>
             <div style="font-family:'Fraunces',serif;font-weight:700;color:${C.cream};font-size:16px;letter-spacing:0.02em;line-height:1;">Ora</div>
-            <div style="color:rgba(245,240,230,0.65);font-size:11px;margin-top:3px;font-style:italic;font-family:'Lora',serif;">AI Growth Assistant</div>
+            <div style="color:rgba(245,240,230,0.65);font-size:11px;margin-top:3px;font-style:italic;font-family:'Lora',serif;">Growth systems for serious practices</div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
@@ -80,9 +80,9 @@
       <div id="ora-messages"></div>
       <div style="height:1px;background:rgba(245,240,230,0.08);flex-shrink:0;"></div>
       <div id="ora-quick">
-        <button class="ora-quick-btn" data-q="I run a med spa">I run a med spa</button>
-        <button class="ora-quick-btn" data-q="I'm a dentist">I'm a dentist</button>
-        <button class="ora-quick-btn" data-q="I do fitness training">I do fitness training</button>
+        <button class="ora-quick-btn" data-q="I run a med spa or aesthetic clinic">Med spa / aesthetics</button>
+        <button class="ora-quick-btn" data-q="I run a medical or dental practice">Medical or dental</button>
+        <button class="ora-quick-btn" data-q="I run a service business">Other service biz</button>
       </div>
       <div id="ora-input-row">
         <input id="ora-input" placeholder="Type your message..." autocomplete="off" />
