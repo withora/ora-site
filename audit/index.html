@@ -63,7 +63,7 @@ body::before {
 /* HEADER */
 .header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
   animation: fadeUp 0.6s ease both;
 }
 
@@ -124,10 +124,119 @@ h1 em {
   margin: 0 auto;
 }
 
+/* PAIN MIRROR BLOCK — NEW */
+.pain-block {
+  margin-bottom: 36px;
+  animation: fadeUp 0.6s ease 0.08s both;
+}
+
+.pain-inner {
+  background: var(--warm);
+  border: 1.5px solid var(--border);
+  border-left: 4px solid var(--terra);
+  border-radius: 16px;
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pain-inner::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 120px;
+  background: radial-gradient(ellipse at top right, rgba(192,72,32,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.pain-line {
+  font-family: var(--serif);
+  font-size: clamp(17px, 3.5vw, 21px);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  margin-bottom: 16px;
+}
+
+.pain-line em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--terra);
+}
+
+.pain-body {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.pain-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--terra-pale);
+  border: 1.5px solid var(--terra-lt);
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.pain-stat-number {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--terra);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pain-stat-label {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--ink-soft);
+  line-height: 1.4;
+  max-width: 220px;
+}
+
+.pain-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.pain-divider-text {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.pain-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.pain-cta-nudge {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sage);
+  line-height: 1.5;
+}
+
 /* PROGRESS */
 .progress-wrap {
   margin-bottom: 32px;
-  animation: fadeUp 0.6s ease 0.1s both;
+  animation: fadeUp 0.6s ease 0.14s both;
 }
 .progress-steps {
   display: flex;
@@ -190,7 +299,7 @@ h1 em {
   box-shadow:
     0 4px 24px rgba(30,26,18,0.06),
     0 1px 4px rgba(30,26,18,0.04);
-  animation: fadeUp 0.6s ease 0.15s both;
+  animation: fadeUp 0.6s ease 0.18s both;
 }
 
 /* STEP PANELS */
@@ -535,6 +644,7 @@ h1 em {
 /* MOBILE */
 @media (max-width: 520px) {
   .card { padding: 28px 22px; }
+  .pain-inner { padding: 22px 20px; }
   .field-row { grid-template-columns: 1fr; gap: 0; }
   .nav-row { flex-direction: column-reverse; }
   .btn-back { width: 100%; }
@@ -584,8 +694,33 @@ h1 em {
     </a>
 
     <div class="eyebrow">Free audit</div>
-    <h1>Your numbers,<br><em>in 24 hours.</em></h1>
-    <p class="subtitle">Practices operating at your level don't leave growth to chance. Ten minutes and we'll show you exactly what's slipping — and what it's costing you. No call, no pitch.</p>
+    <h1>Find out what your<br>practice <em>lost last month.</em></h1>
+    <p class="subtitle">No call. No pitch. Just your number, in your inbox within 24 hours.</p>
+  </div>
+
+  <!-- PAIN MIRROR BLOCK -->
+  <div class="pain-block">
+    <div class="pain-inner">
+      <div class="pain-line">
+        You didn't miss those leads because you weren't good enough.<br>
+        You missed them because you were <em>busy being good at the actual work.</em>
+      </div>
+      <p class="pain-body">
+        The calls that came in while you were with a client. The inquiry that sat in your DMs 
+        until it was too late. The follow-up you meant to send and forgot. 
+        None of that is a discipline problem. It's a systems problem — 
+        and it has a dollar amount attached to it.
+      </p>
+      <div class="pain-stat">
+        <div class="pain-stat-number">$3,800+</div>
+        <div class="pain-stat-label">average monthly revenue leak for local service businesses — before Ora closes the gap</div>
+      </div>
+      <div class="pain-divider">
+        <div class="pain-divider-line"></div>
+        <div class="pain-divider-text">two minutes to find yours</div>
+        <div class="pain-divider-line"></div>
+      </div>
+    </div>
   </div>
 
   <!-- PROGRESS -->
@@ -607,7 +742,7 @@ h1 em {
   <!-- FORM CARD -->
   <div class="card">
 
-    <!-- STEP 1: About your business -->
+    <!-- STEP 1 -->
     <div class="step-panel active" id="step1">
       <div class="step-heading">Let's start with the basics.</div>
       <div class="step-sub">Tell us who you are and what you do.</div>
@@ -652,7 +787,7 @@ h1 em {
       </div>
     </div>
 
-    <!-- STEP 2: Online presence -->
+    <!-- STEP 2 -->
     <div class="step-panel" id="step2">
       <div class="step-heading">Your online presence.</div>
       <div class="step-sub">This helps us audit your current digital footprint. Skip anything you don't have yet.</div>
@@ -703,7 +838,7 @@ h1 em {
       </div>
     </div>
 
-    <!-- STEP 3: The numbers -->
+    <!-- STEP 3 -->
     <div class="step-panel" id="step3">
       <div class="step-heading">The numbers.</div>
       <div class="step-sub">Rough estimates are fine. For most practices, the audit reveals enough recoverable revenue to pay for Ora in the first week. These numbers make that math real.</div>
@@ -767,7 +902,7 @@ h1 em {
       </div>
     </div>
 
-    <!-- STEP 4: The gap -->
+    <!-- STEP 4 -->
     <div class="step-panel" id="step4">
       <div class="step-heading">Where the gap lives.</div>
       <div class="step-sub">The most successful practices we work with identified these exact same gaps before they solved them. Be honest here — the more specific you are, the more useful your audit will be.</div>
@@ -824,7 +959,7 @@ h1 em {
       </div>
     </div>
 
-    <!-- STEP 5: Contact -->
+    <!-- STEP 5 -->
     <div class="step-panel" id="step5">
       <div class="step-heading">Last step.</div>
       <div class="step-sub">Where should we send your audit? We'll have it to you within 24 hours.</div>
@@ -891,16 +1026,13 @@ h1 em {
       <span style="font-family:'Lora',serif;font-style:italic;font-size:12px;
         color:rgba(30,26,18,0.3);">withora.co</span>
     </a>
-    <a href="/" class="footer-text" style="text-decoration:none;">AI systems for local businesses · Built by Ora</a>
+    <a href="/" class="footer-text" style="text-decoration:none;">Automated growth systems for local businesses · Built by Ora</a>
   </div>
 
 </div><!-- end wrapper -->
 
 <script>
-// ── CONFIGURATION ─────────────────────────────────────────────
-// Paste your GHL webhook URL here after creating the workflow
 const GHL_WEBHOOK_URL = 'YOUR_GHL_WEBHOOK_URL_HERE';
-// ─────────────────────────────────────────────────────────────
 
 let currentStep = 1;
 const totalSteps = 5;
@@ -944,41 +1076,25 @@ function validateStep(step) {
     const name = document.getElementById('bizName').value.trim();
     const type = document.getElementById('bizType').value;
     const city = document.getElementById('bizCity').value.trim();
-    if (!name || !type || !city) {
-      showError('error1', true);
-      return false;
-    }
-    showError('error1', false);
-    return true;
+    if (!name || !type || !city) { showError('error1', true); return false; }
+    showError('error1', false); return true;
   }
   if (step === 2) {
     const google = document.getElementById('googleProfile').value;
     const booking = document.getElementById('bookingSystem').value;
-    if (!google || !booking) {
-      showError('error2', true);
-      return false;
-    }
-    showError('error2', false);
-    return true;
+    if (!google || !booking) { showError('error2', true); return false; }
+    showError('error2', false); return true;
   }
   if (step === 3) {
     const val = document.getElementById('serviceValue').value.trim();
     const followUp = document.getElementById('followUpSpeed').value;
-    if (!val || !followUp) {
-      showError('error3', true);
-      return false;
-    }
-    showError('error3', false);
-    return true;
+    if (!val || !followUp) { showError('error3', true); return false; }
+    showError('error3', false); return true;
   }
   if (step === 4) {
     const checked = document.querySelectorAll('.check-group input[type="checkbox"]:checked');
-    if (checked.length === 0) {
-      showError('error4', true);
-      return false;
-    }
-    showError('error4', false);
-    return true;
+    if (checked.length === 0) { showError('error4', true); return false; }
+    showError('error4', false); return true;
   }
   if (step === 5) {
     const fname = document.getElementById('firstName').value.trim();
@@ -986,9 +1102,7 @@ function validateStep(step) {
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (!fname || !emailValid) {
       showError('error5', true);
-      if (!emailValid && email) {
-        document.getElementById('email').classList.add('error');
-      }
+      if (!emailValid && email) document.getElementById('email').classList.add('error');
       return false;
     }
     showError('error5', false);
@@ -1015,14 +1129,12 @@ function prevStep(from) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Checkbox visual toggle
 document.querySelectorAll('.check-item input[type="checkbox"]').forEach(cb => {
   cb.addEventListener('change', function() {
     this.closest('.check-item').classList.toggle('checked', this.checked);
   });
 });
 
-// Phone auto-format to E.164 for GHL (+12105550000)
 function formatPhone(raw) {
   const digits = raw.replace(/\D/g, '');
   if (digits.length === 10) return '+1' + digits;
@@ -1030,7 +1142,6 @@ function formatPhone(raw) {
   return digits.length > 0 ? '+' + digits : '';
 }
 
-// Live phone formatting as user types — shows (210) 555-0000
 document.getElementById('phone').addEventListener('input', function() {
   let digits = this.value.replace(/\D/g, '').slice(0, 10);
   let formatted = '';
@@ -1045,9 +1156,7 @@ function collectData() {
   document.querySelectorAll('.check-group input[type="checkbox"]:checked').forEach(cb => {
     challenges.push(cb.value);
   });
-
   const rawPhone = document.getElementById('phone').value.trim();
-
   return {
     firstName: document.getElementById('firstName').value.trim(),
     lastName: document.getElementById('lastName').value.trim(),
@@ -1077,20 +1186,15 @@ function collectData() {
 
 function submitForm() {
   if (!validateStep(5)) return;
-
   const btn = document.getElementById('submitBtn');
   btn.textContent = 'Sending...';
   btn.disabled = true;
-
   const data = collectData();
-
-  // Proper CORS fetch -- sends real JSON Make can parse as individual fields
   fetch('https://hook.us2.make.com/3ffw52ydw3fht8rqk5mb6p4uw37xm92t', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
   }).catch(err => console.warn('Webhook error:', err));
-
   setTimeout(() => {
     for (let i = 1; i <= totalSteps; i++) {
       const panel = document.getElementById('step' + i);
@@ -1102,14 +1206,10 @@ function submitForm() {
   }, 800);
 }
 
-// Allow enter key to advance
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && e.target.tagName !== 'SELECT') {
-    if (currentStep < totalSteps) {
-      nextStep(currentStep);
-    } else if (currentStep === totalSteps) {
-      submitForm();
-    }
+    if (currentStep < totalSteps) nextStep(currentStep);
+    else if (currentStep === totalSteps) submitForm();
   }
 });
 </script>
