@@ -566,7 +566,102 @@ a { color: inherit; }
 /* ══════════════════════════════════════════
    PRICING
 ══════════════════════════════════════════ */
-.pricing { background: var(--warm); padding: 100px 40px; }
+.sovereign-band {
+  background: var(--ink);
+  padding: 80px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.sovereign-band::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(192,72,32,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.sovereign-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.sovereign-eyebrow {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--terra-lt);
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.sovereign-eyebrow::before,
+.sovereign-eyebrow::after {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--terra-lt);
+  opacity: 0.5;
+}
+.sovereign-name {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 28px;
+}
+.sovereign-body {
+  font-family: var(--lora);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(245,240,230,0.65);
+  margin-bottom: 40px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.sovereign-body em {
+  color: rgba(245,240,230,0.9);
+  font-style: normal;
+}
+.sovereign-note {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(245,240,230,0.28);
+  letter-spacing: 0.04em;
+  margin-bottom: 32px;
+}
+.sovereign-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid rgba(245,240,230,0.25);
+  color: rgba(245,240,230,0.85);
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 36px;
+  border-radius: 100px;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.sovereign-cta:hover {
+  border-color: rgba(245,240,230,0.6);
+  color: #fff;
+  background: rgba(245,240,230,0.06);
+}
+@media (max-width: 600px) {
+  .sovereign-band { padding: 60px 24px; }
+}
+
 .pricing-head { max-width: 1140px; margin: 0 auto 64px; }
 .pricing-grid {
   max-width: 1140px; margin: 0 auto;
@@ -833,15 +928,13 @@ footer { background: var(--ink); padding: 72px 40px 32px; }
         <span>Built for local business owners</span>
       </div>
       <h1 class="hero-h1">
-        The practice you built
-        <span class="italic-line">is already exceptional.</span>
-        Your system should be too.
+        Fully booked.
+        <span class="italic-line">Still bleeding.</span>
       </h1>
-      <!-- PATCH 1: Bernays identity layer -->
-      <p class="hero-sub">You trained for years to build something people trust. Practices operating at your level don't leave that to chance — they run systems that protect every lead while they do the work only they can do. Right now, patients are trying to reach you after hours, between appointments, on weekends. They deserve to get through every time. Ora makes sure they do.</p>
+      <p class="hero-sub">The leak isn't on your calendar. It's running behind it, right now, mid-shift, while your team holds three conversations at once. Your injectors are booked solid and your front desk isn't failing — it's drowning. The inquiries that land in those gaps don't wait, they wander, each one carrying $1,500 to $8,000 of lifetime value to whoever answers first. Two-thirds of your potential revenue is gone before the first syringe is opened, and a full calendar is the most expensive camouflage in this industry. Ora measures the leak, puts the exact dollar figure in your inbox by tomorrow morning, and builds the layer that catches what human hands can't.</p>
       <div class="hero-btns">
-        <a href="/audit" class="btn-hero-primary" target="_blank" rel="noopener">Show me what I'm missing →</a>
-        <a href="#services" class="btn-hero-secondary">See how it works first</a>
+        <a href="/audit" class="btn-hero-primary" target="_blank" rel="noopener">Show me my number →</a>
+        <a href="#services" class="btn-hero-secondary">See a sample report first</a>
       </div>
     </div>
     <div class="hero-illustration" aria-hidden="true">
@@ -1071,21 +1164,18 @@ footer { background: var(--ink); padding: 72px 40px 32px; }
   <div class="niches-blob"></div>
   <div class="niches-inner">
     <div class="section-eyebrow">Who we serve</div>
-    <h2 class="section-title">If you serve clients,<br><em>we were built for you.</em></h2>
-    <p class="niches-intro">Ora isn't for every business. It's for the ones that have already built something worth protecting. The practitioners who are so good at their work that the business side never gets their full attention — not because they don't care, but because their patients and clients demand everything they have. Those people deserve a system that matches what they've built.</p>
+    <h2 class="section-title">Built in the treatment room.<br><em>It travels well.</em></h2>
+    <p class="niches-intro">Ora was built for practices where the calendar is full and the phone is the leak: med spas, aesthetic clinics, the kind of business where one missed call is a four-figure patient. That's where the system was pressure-tested and that's who it's tuned for. It turns out the same wound shows up anywhere a booked schedule hides an unanswered inquiry — so the system now runs across the practices below. But if you hold a syringe for a living, understand: this list exists because of you, not in addition to you.</p>
     <div class="niches-pills">
-      <div class="niche-pill"><span class="niche-pill-name">Medical & Dental Practices</span><span class="niche-pill-note">— Doctors, dentists, chiropractors, functional medicine, physical therapy</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Aesthetic & Med Spas</span><span class="niche-pill-note">— Med spas, cosmetic clinics, laser studios, hormone therapy, regenerative medicine</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Beauty & Wellness</span><span class="niche-pill-note">— Lash studios, estheticians, massage therapists, acupuncturists, nail artists</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Fitness & Movement</span><span class="niche-pill-note">— Personal trainers, gyms, yoga studios, pilates, dance studios</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Legal & Professional Services</span><span class="niche-pill-note">— Law firms, accountants, financial advisors, consultants, insurance</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Real Estate & Property</span><span class="niche-pill-note">— Agents, brokers, property managers, mortgage professionals</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Home & Trade Services</span><span class="niche-pill-note">— HVAC, plumbers, electricians, cleaners, landscapers, contractors</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Food & Hospitality</span><span class="niche-pill-note">— Restaurants, cafés, caterers, event venues, food trucks</span></div>
-      <div class="niche-pill"><span class="niche-pill-name">Creative & Studio Services</span><span class="niche-pill-note">— Photographers, videographers, florists, music teachers, art studios</span></div>
+      <div class="niche-pill" style="border-color:rgba(192,72,32,0.35);background:rgba(192,72,32,0.06);"><span class="niche-pill-name">Aesthetic & Med Spas</span><span class="niche-pill-note">— The original. Still the center of gravity.</span></div>
+      <div class="niche-pill" style="border-color:rgba(192,72,32,0.2);background:rgba(192,72,32,0.03);"><span class="niche-pill-name">Medical & Dental Practices</span><span class="niche-pill-note">— Doctors, dentists, cosmetic dentistry, functional medicine</span></div>
+      <div class="niche-pill"><span class="niche-pill-name">Legal & Professional Services</span><span class="niche-pill-note">— Personal injury, family law, solo and small-firm attorneys</span></div>
+      <div class="niche-pill"><span class="niche-pill-name">Beauty & Wellness</span><span class="niche-pill-note">— Lash studios, estheticians, massage therapists, acupuncturists</span></div>
+      <div class="niche-pill"><span class="niche-pill-name">Fitness & Movement</span><span class="niche-pill-note">— Personal trainers, boutique studios, pilates, yoga</span></div>
+      <div class="niche-pill"><span class="niche-pill-name">Home & Trade Services</span><span class="niche-pill-note">— HVAC, plumbers, electricians, landscapers, contractors</span></div>
       <a href="/audit" class="niche-pill niche-pill-you" target="_blank" rel="noopener">
         <span class="niche-pill-name">You.</span>
-        <span class="niche-pill-note">— If you serve clients locally, we were made for you.</span>
+        <span class="niche-pill-note">— If you serve clients locally and your phone is the leak, we were made for you.</span>
       </a>
     </div>
   </div>
@@ -1095,9 +1185,8 @@ footer { background: var(--ink); padding: 72px 40px 32px; }
 <section class="pricing" id="pricing">
   <div class="pricing-head">
     <div class="section-eyebrow">Investment</div>
-    <h2 class="section-title">Pays for itself<br><em>in the first week.</em></h2>
-    <!-- PATCH 5: ROI math in pricing subhead -->
-    <p class="pricing-sub">For most practices, recovering two missed leads per week covers the cost of Ora within the first month. Every tier includes a 30-day guarantee — if your AI doesn't capture at least one new lead, we work at no charge until it does.</p>
+    <h2 class="section-title">One recovered patient covers the month.<br><em>Most practices recover several in week one.</em></h2>
+    <p class="pricing-sub">The math isn't magic. A single returning inquiry is worth $1,500 to $8,000 in lifetime value. The system only has to catch one of the ones already slipping past you — and it catches the first one fast, because they were already calling. Every tier includes a 30-day guarantee: if your system doesn't capture at least one new lead, we work at no charge until it does.</p>
   </div>
   <div class="pricing-grid">
     <div class="p-card">
@@ -1136,26 +1225,7 @@ footer { background: var(--ink); padding: 72px 40px 32px; }
       </ul>
       <a href="https://buy.stripe.com/eVqeVc1Mi42UcAT2tL77O01" class="p-btn" target="_blank" rel="noopener">Start growing →</a>
     </div>
-    <div class="p-card featured">
-      <div class="featured-banner">Founder's Circle</div>
-      <div class="p-card-blob"></div>
-      <div class="p-tier">Flagship ✦</div>
-      <div class="p-name">Sovereign</div>
-      <div class="p-price"><sup>$</sup>3,997</div>
-      <div class="p-cadence">per month · 6-month min.</div>
-      <div class="p-setup">+ $9,997 setup · By application</div>
-      <div class="p-rule"></div>
-      <ul class="p-feats">
-        <li>Everything in Ascent</li>
-        <li>4 video ads per month — consistent visibility, zero effort</li>
-        <li>Weekly strategy call — your business gets sharper every week</li>
-        <li>Quarterly gifts, because people who perform get celebrated</li>
-        <li>A handwritten note every month — from us, to you, personally</li>
-        <li>Annual business portrait — you look the part</li>
-        <li>A direct line to us, always — no queue, no wait</li>
-      </ul>
-      <a href="https://cal.com/withora/sovereign" class="p-btn" target="_blank" rel="noopener">Apply →</a>
-    </div>
+
     <div class="p-card">
       <div class="p-card-blob"></div>
       <div class="p-tier">Premium ✦</div>
@@ -1181,17 +1251,33 @@ footer { background: var(--ink); padding: 72px 40px 32px; }
   </div>
 </section>
 
+<!-- SOVEREIGN -->
+<section class="sovereign-band">
+  <div class="sovereign-inner">
+    <div class="sovereign-eyebrow">By application only</div>
+    <div class="sovereign-name">Sovereign</div>
+    <p class="sovereign-body">
+      Most practices need a system. A few need to <em>disappear from their own operations entirely.</em>
+      Sovereign is for the owner who has decided her hands no longer belong in the machine:
+      every channel, every follow-up, every reactivation, every report — built, run, and owned on her behalf.
+      We take two Sovereign practices per quarter, because this tier is staffed differently,
+      and we'd rather decline you than dilute it.
+    </p>
+    <p class="sovereign-note">There is no pricing card. The number depends on what we find in your audit — and the audit comes first regardless.</p>
+    <a href="https://cal.com/withora/sovereign" class="sovereign-cta" target="_blank" rel="noopener">Request a Sovereign review →</a>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="cta-band" id="cta">
   <div class="cta-blob-1"></div>
   <div class="cta-blob-2"></div>
   <div class="cta-inner">
     <div class="cta-hand">Your free business audit</div>
-    <h2 class="cta-h2">The practice you<br>imagined when you<br><em>started — it exists.</em></h2>
-    <!-- PATCH 6: Bernays closing identity frame -->
-    <p class="cta-sub">The practices you admire — fully booked, growing without chaos, treating every patient who reaches out — they didn't get there by working harder. They built the right systems. Tell us about your practice. Within 24 hours, we send you a breakdown of exactly what's slipping and what it would take to close it. No call. No pitch. Just clarity in your inbox.</p>
+    <h2 class="cta-h2">The leak doesn't close<br><em>while you think it over.</em></h2>
+    <p class="cta-sub">It's been running the whole time you've been reading this page. It'll run through tonight's close, tomorrow's open, and every lunch hour your phone rings twice. You don't have to fix anything today. You just have to find out the number — five fields, and it arrives by morning. The practice you imagined when you started is still in there. It's just waiting behind a faucet someone needs to turn off.</p>
     <div class="cta-actions">
-      <a href="/audit" class="btn-cta" target="_blank" rel="noopener">Show me my numbers →</a>
+      <a href="/audit" class="btn-cta" target="_blank" rel="noopener">Get my number by morning →</a>
       <a href="mailto:hello@withora.co" class="btn-cta-ghost">hello@withora.co →</a>
     </div>
     <p class="cta-note">Free to start · No pitch · Results or we work for free</p>
@@ -1255,3 +1341,4 @@ footer { background: var(--ink); padding: 72px 40px 32px; }
 <script src="/chatbot-production.js"></script>
 </body>
 </html>
+
